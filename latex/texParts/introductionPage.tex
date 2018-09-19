@@ -1,49 +1,37 @@
 \section{Wstęp}
 
-W dzisiejszych czasach, kiedy dostęp do urządzeń mobilnych stał się powszechny a większość tych urządzeń dorównuje swoimi parametrami tabletom czy też nawet laptopom aplikacje mobilne stały się bardzo popularne. Wraz ze wzrostem popularności aplikacji pisanych na smatphony wymagania stawiane przed tymi programami znacząco wzrosły. Od najprostszych aplikacji wymaga się najczęściej spotykanych funkcjonalności stron internetowych lub aplikacji komputerowych takich jak połączenie z internetem, uwierzytelnianie użytkownika, synchronizacji i zapisu danych. \nocite{Swift-doc} \nocite{Realm-doc} \nocite{FMDB-doc} \nocite{CoreData-doc} \nocite{PorownanieRealm} \nocite{Mockaroo} \nocite{PorownanieDrDobbs} \nocite{SQLite-book} \nocite{CoreDataBook} \nocite{Art2Key} \nocite{Art3Key} \nocite{Art4Key}
+ W~dzisiejszych czasach, kiedy dostęp do urządzeń mobilnych stał się powszechny, a~większość tych urządzeń dorównuje swoimi parametrami tabletom czy też nawet laptopom aplikacje mobilne stały się bardzo popularne. Wraz ze wzrostem popularności aplikacji pisanych na smatphony wymagania stawiane przed tymi programami znacząco wzrosły. Od najprostszych aplikacji wymaga się najczęściej spotykanych funkcjonalności stron internetowych lub aplikacji komputerowych takich jak połączenie z~internetem, uwierzytelnianie użytkownika, synchronizacji i~zapisu danych. \nocite{Swift-doc} \nocite{Realm-doc} \nocite{FMDB-doc} \nocite{CoreData-doc} \nocite{PorownanieRealm} \nocite{Mockaroo} \nocite{PorownanieDrDobbs} \nocite{SQLite-book} \nocite{CoreDataBook} \nocite{Art2Key} \nocite{Art3Key} \nocite{Art4Key}
 \par
-Obecnie praktycznie każda z aplikacji zawiera w sobie bazę danych. Synchronizowaną z serwerem, przechowującą znaczące ilości danych odpowiadających za poprawne działanie programu a także często zapewniającą prace aplikacji bez połączenia z internetem. Ważne jest więc aby zastosowana baza danych zapewniała satysfakcjonującą prędkości dostępu do danych i nie narażała użytkownika na opóźnienia związane z pozyskaniem danych. Istotną kwestią z punktu widzenia programisty - osoby tworzącej aplikację jest łatwość implementacji wydajnej bazy danych. Łatwość implementacji przekłada się w późniejszych etapach życia oprogramowania na szybsze i prostsze dodawanie nowych elementów, relacji czy tablic w zastosowanej bazie, dzięki czemu oszczędzany jest cenny czas przeznaczony na proces wytwarzania programu. \par
+Obecnie praktycznie każda z~aplikacji zawiera w~sobie bazę danych. Synchronizowaną z~serwerem, przechowującą znaczące ilości danych odpowiadających za poprawne działanie programu, a~także często zapewniającą prace aplikacji bez połączenia z~internetem. Ważne jest więc aby zastosowana baza danych zapewniała satysfakcjonującą prędkości dostępu do danych i~nie narażała użytkownika na opóźnienia związane z~pozyskaniem danych. Istotną kwestią z~punktu widzenia programisty - osoby tworzącej aplikację jest łatwość implementacji wydajnej bazy danych. Łatwość implementacji przekłada się w~późniejszych etapach życia oprogramowania na szybsze i~prostsze dodawanie nowych elementów, relacji czy tablic w~zastosowanej bazie, dzięki czemu oszczędzany jest cenny czas przeznaczony na proces wytwarzania programu. \par
 
-Niniejsza praca ma na celu przedstawienie obecnie dostępnych baz danych dla systemu iOS, pokazanie i porównanie  sposobów ich implementacji oraz porównanie ich szybkości. Na potrzeby pracy stworzono aplikacje będącą środowiskiem testowym wybranych baz danych. 
+Niniejsza praca ma na celu przedstawienie obecnie dostępnych baz danych dla systemu iOS, pokazanie i~porównanie  sposobów ich implementacji oraz porównanie ich szybkości. Na potrzeby pracy stworzono aplikacje będącą środowiskiem testowym wybranych baz danych. 
 	
 \subsection{Cel pracy}
 
-Celem niniejszej pracy było porównanie wydajności wybranych baz danych oraz sposobów ich implementacji w systemie iOS. Każda z baz została zaimplementowana oddzielnie w standardowy dla danej bazy sposób. W pracy porównane zostały różne typy baz danych typowo relacyjnych jak i NoSQL (column-oriented), ważnym aspektem było więc zapewnienie odpowiednich środowisk testowych, które mogły zapewnić poprawność otrzymanych wyników niezależnie od różnic w architekturze. Praca przedstawia również porównanie sposobów implementacji testowanych baz danych.\par
+Celem niniejszej pracy było porównanie wydajności wybranych baz danych oraz sposobów ich implementacji w~systemie iOS. Każda z~baz została zaimplementowana oddzielnie w~standardowy dla danej bazy sposób. W~pracy porównane zostały różne typy baz danych typowo relacyjnych jak i~NoSQL (column-oriented), ważnym aspektem było więc zapewnienie odpowiednich środowisk testowych, które mogły zapewnić poprawność otrzymanych wyników niezależnie od różnic w~architekturze. Praca przedstawia również porównanie sposobów implementacji testowanych baz danych.\par
 
 Zakres pracy obejmuje następujące zagadnienia: 
 
 \begin{itemize}
-	\item Wykonanie zbiorczego przeglądu literatury w tematyce
-	\item Opis dostępnych baz danych w systemie iOS (Core data, SQLLite, Realm, UserDefaults, FMDB)
+	\item Wykonanie zbiorczego przeglądu literatury w~tematyce
+	\item Opis dostępnych baz danych w~systemie iOS (Core data, SQLite, Realm, UserDefaults, FMDB)
 	\item Stworzenie narzędzia do porównania wydajności baz danych oraz metod testowych.
-	\item Przygotowanie struktury testów porównawczych i środowisk testowych
+	\item Przygotowanie struktury testów porównawczych i~środowisk testowych
 	\item Zebranie wyników testów dla wybranych operacji oraz analiza wyników.
 	\item Opis wniosków na podstawie zebranych danych badawczych.
 \end{itemize}
 
 \subsection{Struktura pracy}
 
-Praca składa się z siedmiu rozdziałów:
+Praca składa się z~siedmiu rozdziałów:
 
 \begin{itemize}
-	\item  Opis wybranych baz danych - w rozdziale przedstawione zostały opisy wybranych baz danych dla systemu iOS: Core Data, Realm, FMDB oraz User Defaults. 
-	\item Dostępne porównania baz danych - w rozdziale zostały przedstawione dostępne porównania szybkości niektórych baz danych.
-	\item Narzędzie do porównywania wydajności i model bazy - w rozdziale została przedstawiona aplikacja umożliwiająca przeprowadzenie testów wybranych baz danych. Pokazana zostanie struktura testowej bazy danych oraz opisane zostały przeprowadzane testy.
-	\item Opis przeprowadzonych testów - w rozdziale zostały opisane testy przeprowadzone w ramach pracy. Przedstawiono kroki potrzebne do otrzymania poprawnych wyników w zależności od typu testu oraz pokazano w jaki sposób został mierzony czas uzyskania rezultatu każdej operacji. 
-	\item Analiza - w rozdziale zostały przedstawione wyniki przeprowadzonych testów. Każdy z rezultatów testów został zanalizowany i opisany.
-	\item Różnice implementacji baz danych -
-w rozdziale zostały pokazane różnice i podobieństwa w implementacji poszczególnych rozwiązań bazodanowych. Przedstawiono fragmenty kodów wykonujące te same operacje przy użyciu różnych baz danych. Opisany też został stopień skomplikowania każdej z operacji.
-\item Podsumowanie - zawarte są w nim wnioski i analiza rezultatów pracy.
+	\item  Opis wybranych baz danych - w~rozdziale przedstawione zostały opisy wybranych baz danych dla systemu iOS: Core Data, Realm, FMDB oraz User Defaults. 
+	\item Dostępne porównania baz danych - w~rozdziale zostały przedstawione dostępne porównania szybkości niektórych baz danych.
+	\item Narzędzie do porównywania wydajności i~model bazy - w~rozdziale została przedstawiona aplikacja umożliwiająca przeprowadzenie testów wybranych baz danych. Pokazana zostanie struktura testowej bazy danych oraz opisane zostały przeprowadzane testy.
+	\item Opis przeprowadzonych testów - w~rozdziale zostały opisane testy przeprowadzone w~ramach pracy. Przedstawiono kroki potrzebne do otrzymania poprawnych wyników w~zależności od typu testu oraz pokazano w~jaki sposób został mierzony czas uzyskania rezultatu każdej operacji. 
+		\item Różnice implementacji baz danych -
+ w~rozdziale zostały pokazane różnice i~podobieństwa w~implementacji poszczególnych rozwiązań bazodanowych. Przedstawiono fragmenty kodów wykonujące te same operacje przy użyciu różnych baz danych. Opisany też został stopień skomplikowania każdej z~operacji.
+	\item Analiza - w~rozdziale zostały przedstawione wyniki przeprowadzonych testów. Każdy z~rezultatów testów został zanalizowany i~opisany.
+\item Podsumowanie - zawarte są w~nim wnioski i~analiza rezultatów pracy.
 \end{itemize}
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
