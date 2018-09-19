@@ -27,10 +27,9 @@
 	bottom=25mm
 }
 
-\usepackage{titlesec}
-\titleformat*{\section}{\LARGE\bfseries}
 
 %page settings
+\usepackage{float}
 \usepackage[\geometryDefault]{geometry}% margins
 \usepackage{times} % Times New Roman
 \setlength{\parindent}{1cm} % tab indentation
@@ -43,6 +42,7 @@
 \usepackage[polish]{babel}
 \usepackage{csquotes}
 \DeclareQuoteAlias{croatian}{polish} % croatian has the same properties as polish
+\usepackage[final]{pdfpages}
 
 %code options
 \usepackage{listings}
@@ -100,9 +100,6 @@
 \definecolor{string}{HTML}{D12F1B}
 \definecolor{comment}{HTML}{008400}
 
-\usepackage[final]{pdfpages} 
-\usepackage{float}
-
 \lstset{
   language=swift,
   basicstyle=\ttfamily,
@@ -133,7 +130,7 @@
 %Define new block, so that if a code is split between 2 pages, then it moves it to the second one.
 \lstnewenvironment{code}[1][]{
    \noindent\newline
-   \minipage{\linewidth}
+   \minipage{\linewidth} 
    \vspace{0.5\baselineskip}
    \lstset{
     extendedchars=true,
@@ -142,8 +139,8 @@
    showspaces=false,
    numbers=left,
    numberstyle=\footnotesize,
-   numbersep=9pt,
-   tabsize=2,
+   numbersep=4pt,
+   tabsize=1,
    breaklines=true,
    showtabs=false,
    captionpos=b,
@@ -160,7 +157,15 @@
 \usepackage{nomencl}
 \makenomenclature
 
-%nomenclature
+%turn off the warnings
+\hfuzz=20pt
+\vfuzz=20pt
+\hbadness=20000
+\vbadness=\maxdimen
+
+%allows referencing sections  to return names, not numbers
+\usepackage[hidelinks]{hyperref}
+
 \usepackage[%
   backend=bibtex      % biber or bibtex
  %,style=authoryear    % Alphabeticalsch
@@ -177,23 +182,13 @@
 ]{biblatex}
 \addbibresource{bib/bibliography.bib}
 
-%turn off the warnings
-\hfuzz=20pt
-\vfuzz=20pt
-\hbadness=20000
-\vbadness=\maxdimen
-
-%allows referencing sections  to return names, not numbers
-\usepackage[hidelinks]{hyperref}
-
-
-
 %START
 \begin{document}
-\clearpage
-\setcounter{page}{2}
+
 %TITLE PAGE
 \include{texParts/titlePage}
+
+\setcounter{page}{2}
 
 %GRADUATION PAGE (karta dyplomowa)
 \include{texParts/graduationPage}
@@ -207,9 +202,6 @@
 %TABLE OF CONTENTS (spis treści)
 \tableofcontents
 
-\clearpage
-\pagenumbering{arabic}
-
 %-----------------YOUR CONTENT STARTS HERE-------------------
 \include{texParts/introductionPage}
 
@@ -219,9 +211,9 @@
 
 \include{texParts/applicationDescryptionPage}
 
-\include{texParts/implementationPage}
-
 \include{texParts/testAnalisePage}
+
+\include{texParts/implementationPage}
 
 \include{texParts/summaryPage}
 %\include{texParts/angularPage} \label{angular-section}
@@ -233,10 +225,11 @@
 
 %----------------YOUR CONTENT ENDS HERE---------------------
 
-\clearpage
-\pagenumbering{gobble}
+%\clearpage
 %BIBLIOGRAPHY
 \addcontentsline{toc}{section}{Literatura}
+%\bibliography{bib/bibliography}
+
 \printbibliography
 
 %NOMENCLATURE

@@ -3,11 +3,11 @@
  W~tym rozdziale przedstawione zostały opisy wybranych baz danych dla systemu iOS: Core Data, Realm, FMDB oraz User Defaults. W~systemie iOS istnieje wiele rozwiązań umożliwiających wdrożenie bazy danych w~aplikacji, przedstawione tutaj przykłady są jednymi z~najczęściej stosowanych przez programistów bazami danych w~aplikacjach iOS.
 
 \subsection{SQLite}
-SQLite jest wewnątrz procesową biblioteką dostępną w~systemie iOS. Kod opisywanej bazy jest dostępny publicznie, można go używać w~dowolnym celu komercyjnym lub prywatnym bez żadnych opłat. Sprawia to, że baza ta jest jednym z~najczęściej wybieranych przez programistów rozwiązań do przechowywania danych w~aplikacjach. Wybór tej biblioteki jest też kierowany tym, iż projekt istnieje już od 2000 roku a~jego twórcy deklarują wsparcie aż do 2050 roku\cite{SQLite-doc} .\par
+SQLite jest wewnątrz procesową biblioteką dostępną w~systemie iOS. Kod opisywanej bazy jest dostępny publicznie, można go używać w~dowolnym celu komercyjnym lub prywatnym bez żadnych opłat. Sprawia to, że baza ta jest jednym z~najczęściej wybieranych przez programistów rozwiązań do przechowywania danych w~aplikacjach. Wybór tej biblioteki jest też kierowany tym, iż projekt istnieje już od 2000 roku a~jego twórcy deklarują wsparcie aż do 2050 roku\cite{SQLite-doc}.\par
 
 SQLite jest ,,lżejszą" wersją SQL więc korzystanie z~funkcji biblioteki zostało znacząco uproszczone. Baza ta nie posiada wydzielonych procesów serwerowych, dane zapisuje i~odczytuje ze zwykłych plików dyskowych. Kompletna baza danych programu zawierająca wszystkie tabele, relacje i~tym podobne komponenty zapewniające poprawne działanie bazy przechowywane są w~jednym pliku na dysku. Dzięki przechowywaniu wszystkich tych informacji w~jednym pliku, informacje te mogą być kopiowane w~stanie nienaruszonym pomiędzy programami.\par
 
-System iOS zapewnia wbudowaną obsługę baz SQLite, nie istnieje więc potrzeba dodawania do projektu dodatkowych bibliotek. Cała komunikacja z~biblioteką jest natywna i~wymaga jedynie zaimportowania SQLite3. 
+System iOS zapewnia wbudowaną obsługę baz SQLite, nie istnieje więc potrzeba dodawania do projektu dodatkowych bibliotek. Cała komunikacja z~biblioteką jest natywna i~wymaga jedynie zaimportowania SQLite3\cite{SQLite-doc}. 
 SQLite jest bazą relacyjna i~zapewnia dodawanie relacji pomiędzy tabelami takich jak: 
 
 \begin{itemize}
@@ -30,7 +30,7 @@ SQLite nie zapewnia wsparcia dla przechowywania obiektów zawierających datę. 
 
 \subsection{Core Data}
 
-Core Data jest dedykowanym rozwiązaniem Apple umożliwiającym zaimplementowanie bazy danych w~aplikacjach iOS i~MacOS. Została wprowadzona od wersji iOS 3.0 w~2009 roku. Znacznie szybciej istniała możliwość używania tej bazy danych w~MacOS,  pierwszą wersją systemu, która to umożliwiła był MacOS Tiger, który ukazał się w~2005 roku.\par
+Core Data jest dedykowanym rozwiązaniem Apple umożliwiającym zaimplementowanie bazy danych w~aplikacjach iOS i~MacOS. Została wprowadzona od wersji iOS 3.0 w~2009 roku. Znacznie szybciej istniała możliwość używania tej bazy danych w~MacOS,  pierwszą wersją systemu, która to umożliwiła był MacOS Tiger, który ukazał się w~2005 roku\cite{CoreData-doc}.\par
 
 Mimo że Core Data służy do przechowywania danych sama w~sobie nie jest bazą danych a~framework'iem który zarządza diagramem obiektów aplikacji. Diagram obiektów jest to zbiór obiektów powiązanych ze sobą relacjami. Core Data zajmuje się zarządzaniem cyklem życia obiektów w~diagramie obiektów na dysku, a~także oferuje interfejs do przeszukiwania obiektów, którymi zarządza. Core Data daje także możliwość sprawdzania poprawności danych wejściowych, modelowania modeli danych czy też śledzenia zmian. \par
 

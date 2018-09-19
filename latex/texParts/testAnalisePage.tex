@@ -3,7 +3,7 @@
  W~rozdziale zostały przedstawione wyniki przeprowadzonych testów. Dane zostały przedstawione w~tabelach oraz za pomocą wykresów. Każdy z~rezultatów testów został zanalizowany i~opisany.
 
 \subsection{Testy zapisu danych}
- W~podrozdziale zostały przedstawione wyniki testów zapisu danych. Dodatkowo przedstawiono ilość wykorzystanej pamięci operacyjnej podczas operacji oraz stopień wykorzystania procesora. W~systemie iOS nie istnieje możliwość odczytania zajętości pamięci operacyjnej i~zużycia procesora jedynie dla danej operacji. Przedstawione dane pokazują więc parametry dla całej działającej aplikacji. Wyniki te są jak najbardziej miarodajne, gdyż każdy z~testów odbywał się na ''świeżo,, uruchomionej aplikacji i~użycie pamięci operacyjnej i~procesora zawsze miało stały punkt startowy. 
+ W~podrozdziale zostały przedstawione wyniki testów zapisu danych. Dodatkowo przedstawiono ilość wykorzystanej pamięci operacyjnej podczas operacji oraz stopień wykorzystania procesora. W~systemie iOS nie istnieje możliwość odczytania zajętości pamięci operacyjnej i~zużycia procesora jedynie dla danej operacji. Przedstawione dane pokazują więc parametry dla całej działającej aplikacji. Wyniki te są jak najbardziej miarodajne, gdyż każdy z~testów odbywał się na ''świeżo,, uruchomionej aplikacji. Użycie pamięci operacyjnej i~procesora zawsze miało stały punkt startowy. 
 
 \subsubsection{Mały zestaw danych}
 
@@ -106,7 +106,7 @@ Prezentacja wyników w~formie wykresów:
 
 \newpage
 
-Czasy zapisu danych widoczne na wykresie \ref{fig: small-save-time} i~w tabeli \ref{tab: small-save-time-table} pokazują że najszybszy okazała się Domyślna Baza Użytkownika, wynika to z~zasady jej działania. Zapisywane są w~niej listy obiektów, nie zachodzi potrzeba ustawiania relacji pomiędzy tabelami. Z~czasem ponad dwukrotnie wyższym wynoszącym 5,52 ms drugi w~kolejności jest Realm. Core Data uzyskała czas trzykrotnie wyższy niż Realm wynoszący 16.05 ms. Najwolniejsze okazały się bazy SQLite i~FMDB uzyskując zbliżone czasy 173,63 ms i~175,45 ms. \par 
+Czasy zapisu danych widoczne na wykresie \ref{fig: small-save-time} i~w tabeli \ref{tab: small-save-time-table} pokazują, że najszybszy okazała się Domyślna Baza Użytkownika, wynika to z~zasady jej działania. Zapisywane są w~niej listy obiektów, nie zachodzi potrzeba ustawiania relacji pomiędzy tabelami. Z~czasem ponad dwukrotnie wyższym wynoszącym 5,52 ms drugi w~kolejności jest Realm. Core Data uzyskała czas trzykrotnie wyższy niż Realm wynoszący 16.05 ms. Najwolniejsze okazały się bazy SQLite i~FMDB uzyskując zbliżone czasy 173,63 ms i~175,45 ms. \par 
 
 Rozmiary plików baz widoczne na wykresie \ref{fig: small-save-file-size} i~w tabeli \ref{tab: small-save-file-size-table} pokazują, że Domyślna Baza Użytkownika posiada najmniejszy rozmiar wynoszący 0.04 kb, przechowuje dane binarne w~wysokim stopniu kompresji. Baza danych Realm posiada plik dużo większy, jego rozmiar wynosi 16,38 kb. SQLite i~FMDB uzyskały niemal równe rozmiary plików. Zaś plik wynikowy Core Data uzyskał rozmiar największy 80 kb. \par
 
@@ -653,3 +653,7 @@ Test zmiany daty wydania książek na obecna datę operował na wszystkich rekor
 Użycie dużego zestawu danych pokazało, że w~dalszym ciągu Realm jest w~podanym teście najszybszy, czas zakończenia operacji wyniósł 8.57 ms. Dużo wolniejszy jest FMDB potrzebował aż 75.59 ms. SQLite także potrzebował dużo czasu na zakończenie testu, operacja wymagała 136.73 ms. Domyślna Baza Użytkownika operacje zakończyła po upływie 306.18 ms. Core Data na wykonanie testu potrzebowała 490,68 ms. 
 
 Podczas edycji każdego z~rekordów tabeli najwydajniejszą bazą okazał się Realm. Wolniejsze od dokumentowej bazy danych okazały się bazy SQL, edycja danych zajęła im więcej czasu. Najmniej wydajna jest Domyślna Baza Użytkownika oraz Core Data, której wydajność jest bardzo słaba w~przedstawionej operacji. 
+
+\subsection{Podsumowanie wszystkich wyników}
+
+Przeprowadzone testy dowodzą, że pod względem zużycia zasobów urządzenia czyli pamięci operacyjnej i procesora bez względu na ilość danych, najlepsze okazują się bazy SQLite oraz FMDB. Stosunkowo najmniejszy plik wynikowy posiada Domyślna Baza Użytkownika i Realm. W sytuacji kiedy potrzebna jest duża wydajność bazy danych podczas zapisu doskonałym rozwiązaniem okazuję się ponownie Realm i Domyślna Baza Użytkownika, niezależnie od ilości danych. Realm pokazuję wysoką wydajność podczas wykonywania operacji na średnich i dużych ilościach danych, lecz jego wydajność spada wraz ze wzrostem stopnia skomplikowania operacji. Bazy FMDB i SQLite są zaś wydajne przy skomplikowanych operacjach bazodanowych wykonywanych na większych ilościach danych. Core Data uzyskuję najlepsze wyniki podczas pracy nad średnią ilością danych. Domyślna Baza Użytkownika przystosowana jest do małej ilości danych oraz do wykonywania nieskomplikowanych zadań.
