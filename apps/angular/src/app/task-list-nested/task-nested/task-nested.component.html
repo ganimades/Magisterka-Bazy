@@ -1,0 +1,14 @@
+<div
+  class="list-nested-micro-container"
+  *ngIf="index < taskService.getTasks().length"
+>
+  <app-task
+    [task]="taskService.getTasks()[index]"
+    (taskDeleted)="taskService.deleteTask($event)"
+  ></app-task>
+
+  <app-task-nested
+    [index]="index + 1"
+    *ngIf="index + 1 <  taskService.getTasks().length"
+  ></app-task-nested>
+</div>

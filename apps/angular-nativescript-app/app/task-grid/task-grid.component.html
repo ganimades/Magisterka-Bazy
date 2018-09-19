@@ -1,0 +1,6 @@
+<FlexboxLayout class="grid-container">
+  <app-task-minimal
+    *ngFor="let task of taskService.getTasks(); trackBy: trackById"
+    [task]="task"
+  ></app-task-minimal>
+</FlexboxLayout>

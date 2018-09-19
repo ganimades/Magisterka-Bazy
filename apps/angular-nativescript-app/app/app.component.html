@@ -1,0 +1,50 @@
+<ScrollView>
+  <StackLayout class="header-container">
+    <app-sidepanel></app-sidepanel>
+    <Label
+      class="h1"
+      text="Todo List"
+    ></Label>
+    <app-task-creator></app-task-creator>
+    <FlexboxLayout class="info-bar">
+      <Label
+        id="task-count"
+        [text]="taskService.getTasks().length + ' tasks'"
+      ></Label>
+      <FlexboxLayout>
+        <Button
+          class="list-type"
+          [ngClass]="{selected: listTypeService.getListType() === 'list'}"
+          text="List"
+          (tap)="setListType('list')"
+        ></Button>
+        <Button
+          class="list-type"
+          [ngClass]="{selected: listTypeService.getListType() === 'nested-list'}"
+          text="Nested List"
+          (tap)="setListType('nested-list')"
+        ></Button>
+        <Button
+          class="list-type"
+          [ngClass]="{selected: listTypeService.getListType() === 'grid'}"
+          text="Grid"
+          (tap)="setListType('grid')"
+        ></Button>
+      </FlexboxLayout>
+    </FlexboxLayout>
+    <ng-container [ngSwitch]="listTypeService.getListType()">
+      <app-task-list
+        class="list-container"
+        *ngSwitchCase="'list'"
+      ></app-task-list>
+      <app-task-grid
+        class="grid-container"
+        *ngSwitchCase="'grid'"
+      ></app-task-grid>
+      <app-task-list-nested
+        class="list-container"
+        *ngSwitchCase="'nested-list'"
+      ></app-task-list-nested>
+    </ng-container>
+  </StackLayout>
+</ScrollView>

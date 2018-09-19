@@ -1,0 +1,132 @@
+\section{VueJS}
+	VueJS jest wieloplatformowym frameworkiem JavaScriptowym, którego pierwsza wersja pojawiła się w Lutym 2014 roku. Zapoczątkowany przez Evana You, byłego pracownika Google, który podczas wieloletniej pracy używał AngularJS w wielu projektach. Spodobały mu się w nim pewne koncepcje, które zdecydował przenieść do własnego frameworku. Celem była prostota, mały rozmiar, brak nie potrzebnych mechanizmów i zawiłości.
+
+	\subsection{Komponenty}
+	W VueJS również zastosowano koncepcję komponentów, jako reużywalnych części, z których składa się aplikacja. W kodzie źródłowym \ref{lis:vuejs-component-create} zostało przedstawione utworzenie komponentu o takich samych funkcjonalnościach, jak w kodzie źródłowym \ref{lis:angular-component-input-output-create} i \ref{lis:reactjs-component-create}. Przyjmuje on 2 parametry: \textit{customer}, którego wartości wyświetlane są w szablone i \textit{helloEmitter}, który wywoływany jest co sekundę. W kodzie źródłowym \ref{lis:vuejs-component-use} przedstawione zostało użycie tego komponentu i przekazanie w parametrach obiektu \textit{myCustomer} i funkcji \textit{greet()}. Taką samą funkcjonalność przedstawiono w kodzie źródłowym \ref{lis:angular-component-input-output-use} i \ref{lis:reactjs-component-use}\par
+	W VueJS istnieją 2 typy komponentów: lokalne i globalne. Globalne nie potrzebują dodatkowego importowania z plików, ale przez to są podatne na kolizję w nazewnictwie. Tworzone są za pomocą \textit{Vue.component('my-customer',\{...\})}, gdzie pierwszy parametr, to nazwa komponentu, a drugi to obiekt konfiguracyjny. Tworzenie lokalnych komponentów różni się tylko nieznacznie. W oddzielnym pliku powinien znajdować się tylko jeden komponent, którego obiekt konfiguracyjny powinien zostać wyeksportowany tak, jak pokazano to w kodzie źródłowym \ref{lis:vuejs-component-use}.\par
+	Jako konfiguracje w polu \textit{data} definiowana jest funkcja zwracająca obiekt, który określa początkowe dane komponentu. W polu \textit{methods} definiowane są wszystkie metody używane w komponencie. W polu \textit{props} określane są dane wejściowe oraz ich typy. Oprócz tego istnieje pole \textit{computed}, w którym wartości mogą być zmieniane dynamicznie, \textit{watch}, gdzie można obserwować zmiany poszczególnych wartości i wiele innych \cite{vuejs-api}.
+	
+	\begin{code}[
+		language=javascript,
+		caption={Utworzenie komponentu z danymi wejściowymi w VueJS (źródło: opracowanie własne)},
+		label={lis:vuejs-component-create},
+		escapechar=|
+	]
+<template>
+  <span>
+    Name: {{customer.name}},
+    Address: {{customer.address}}
+  </span>
+</template>
+<script>
+  export default {
+    name: 'MyCustomer',
+    beforeCreate() {
+      this.intervalId = setInterval(() => {
+        this.helloEmitter('Hello: ' + this.customer.name)
+      }, 1000)
+    },
+    beforeDestroy() {
+      clearInterval(this.intervalId)
+    },
+    props: {
+      helloEmitter: Function,
+      customer: Object
+    }
+  }
+</script>
+	\end{code}
+	
+	\begin{code}[
+		language=javascript,
+		caption={Użycie komponentu z danymi wejściowymi w VueJS (źródło: opracowanie własne)},
+		label={lis:vuejs-component-use},
+		escapechar=|
+	]
+<template>
+  <MyCustomer
+    :customer="myCustomer" |\label{line:vuejs-component-props}|
+    :hello-emitter="greet"
+  />
+</template>
+<script>
+  import MyCustomer from './components/MyCustomer.vue'
+  export default {
+    name: 'app',
+    components: {
+      MyCustomer
+    },
+    data: () => ({
+      myCustomer: {
+        name: 'Adam',
+        address: 'Belveder st.'
+      }
+    }),
+    methods: {
+      greet(message) {
+        console.log(message)
+      }
+    }
+  }
+</script>
+	\end{code}
+	
+	\subsubsection{Dane wejściowe i wyjściowe}
+	Do komponentów oczywiście można przekazywać dane. Dzieje się to za pomocą atrybutów elementu HTML poprzedzonych dwukropkiem (:) tak, jak przedstawiono to w kodzie źródłowym \ref{lis:vuejs-component-use} w linijce \ref{line:vuejs-component-props}. Jako wartości można używać wyrażeń oraz danych komponentu, do który w komponencie można odwołać się za pomocą zmiennej \textit{this}. W przykładzie tym przekazany został obiekt \textit{myCustomer} oraz funkcja \textit{greet}.
+	\subsubsection{Cykl życia}
+	Tak, jak w Angularze i ReactJS, komponenty VueJS posiadają swój własny cykl życia. Do jego poszczególnych etapów można się \blockquote{podpiąć} definiując specjalne funkcje w obiekcie konfiguracyjnym. Przykład 2 takich funkcji użyto w kodzie źródłowym \ref{lis:vuejs-component-create}. Funkcja \textit{beforeCreate()}, wywoływana przed utworzeniem komponentu, rozpoczyna wysyłanie wydarzenia co 1 sekundę, a funkcja \textit{beforeDestroy()}, wywoływana tuż przez usunięciem komponentu, zatrzymuje ten proces.
+	\subsection{Dyrektywy}
+	W VueJS istnieje koncepcja dyrektyw, jako struktur odpowiedzialnych za niskopoziomowy dostęp do elementów drzewa DOM. Najczęściej używane z nich przedstawione zostały w kodzie źródłowym \ref{lis:vuejs-directives}. W linijce \ref{line:vuejs-if} użyta została dyrektywa \textit{v-if}, która usuwa element, jeśli wyrażenie przekazane jako jej wartość jest nieprawdziwe. W linijce \ref{line:vuejs-for} użyta została dyrektywa renderująca element, na którym się znajduje, tyle razy, ile jest elementów w tablicy \textit{customers}.\par
+	Można zauważyć, że zachowanie oraz używanie dyrektyw w VueJS i Angular odbywa się w prawie identyczny sposób.
+	
+	\begin{code}[
+		language=javascript,
+		caption={Używanie dyrektyw w VueJS (źródło: opracowanie własne)},
+		label={lis:vuejs-directives},
+		escapechar=|
+	]
+<div v-if="age >= 18"> |\label{line:vuejs-if}|
+  Adult
+</div>
+
+<div v-for="c in customers"> |\label{line:vuejs-for}|
+  {{c.name}}
+</div>
+	\end{code}
+
+	\subsection{Router}
+	Router w VueJS do nawigowania między widokami istnieje jako oficjalny moduł. Jego konfiguracja przebiega w bardzo podobny sposób, jak w Angularze i ReactJS. Obiekt konfiguracyjny \textit{VueRouter} zawiera tablicę obiektów, gdzie każdy posiada pole \textit{path}, które określa ścieżkę URL, oraz \textit{component}, które określa komponent renderowany w przypadku pasującej ścieżki. W kodzie źródłowym \ref{lis:vuejs-router} pokazany został taki właśnie przykład.
+	
+	\begin{code}[
+		language=javascript,
+		caption={Konfiguracja Routera w VueJS (źródło: opracowanie własne)},
+		label={lis:vuejs-router},
+		escapechar=|
+	]
+const router = new VueRouter({
+  routes: [
+    { path: '/shop', component: ShopComponent },
+    { path: '/shop/item/:itemId', component: ShopItemComponent }
+  ]
+})
+const app = new Vue({
+  router
+}).\$mount('#app')
+	\end{code}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

@@ -1,0 +1,15 @@
+<FlexboxLayout class="task">
+  <CheckBox
+    [checked]="task.isDone"
+    (checkedChange)="inputChange($event)"
+  ></CheckBox>
+  <Label
+    class="name"
+    [text]="task.name"
+  ></Label>
+  <Button
+    class="delete-wrapper"
+    (tap)="deleteTask()"
+    text="X"
+  ></Button>
+</FlexboxLayout>

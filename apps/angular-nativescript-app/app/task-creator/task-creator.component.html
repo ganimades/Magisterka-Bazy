@@ -1,0 +1,14 @@
+<FlexboxLayout class="task-creator">
+  <TextField
+    class="input"
+    hint="New Task"
+    [(ngModel)]="taskName"
+    #element
+  ></TextField>
+  <Button
+    class="btn btn-primary"
+    text="Add"
+    [isEnabled]="!!taskName"
+    (tap)="createTask()"
+  ></Button>
+</FlexboxLayout>

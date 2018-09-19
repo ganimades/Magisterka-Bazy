@@ -1,0 +1,399 @@
+\section{Angular}
+	15 września 2016 roku po blisko półtora roku prac Google wydało wzorowaną na poprzedniku, przepisaną od nowa nową wersję - Angular 2. Określana słowami \textit{One framework. Mobile \& desktop.} platforma programistyczna do tworzenia aplikacji internetowych na urządzenia mobilne i desktopowe z wykorzystaniem języka TypeScript. Implementuje podstawowe i opcjonalne funkcjonalności jako zbiór bibliotek gotowych do zaimportowania. W kolejnych podrozdziałach omówione zostaną podstawowe struktury i sposoby tworzenia aplikacji.
+	
+	\subsection{Nazewnictwo i wersjonowanie}  
+	Początkowo Angular miał pozostać w wersji 2, tak samo jak AngularJS pozostał w wersji 1, dlatego właśnie początkowa nazwa - Angular 2 \cite{angular-versioning}. Jednak miesiąc po oficjalnej publikacji twórcy ogłosili zmianę sposobu wersjonowania na SEMVER (ang. \textit{Semantic Versioning}). Głównym celem SEMVER jest nadanie znaczenia numerom wersji. Pozwala to na zobrazowanie jak duże zmiany wprowadzono, a nawet umożliwienie narzędziom takim jak NPM (ang. \textit{Node Package Manager}) na aktualizowanie \blockquote{paczek} w automatyczny i bezpieczny sposób.\par
+	
+	Każda wersja składa się z 3 liczb. Przykładem jest \textit{2.5.3}. Kiedy naprawiony zostaje jakiś \textit{bug} zwiększana jest ostatnia liczba. Kiedy dodana jest nowa funkcjonalność zwiększana jest środkowa liczba. Kiedy wydanie posiada \textit{breaking change}, to znaczy zmianę taką, która zmusza użytkownika do dostosowania wcześniej działającego programu do nowej wersji, zwiększana jest pierwsza liczba.\par
+	
+	Dlatego właśnie początkowa nazwa Angular 2 od tamtej pory przekształciła się w Angular. Na czas pisania tej pracy najnowszą wersją jest 6.0.0.
+	
+	\subsection{RxJS}
+	Jednym z założeń przepisania frameworku była zmiana sposobu detekcji zmian. Zdecydowano się na programowanie reaktywne. Jest to asynchroniczny paradygmat programowania dotyczący strumieni danych i propagacji zmian. Do tego celu użyto biblioteki RxJS (ang. \textit{Reactive Extensions for JavaScript}), która zapewnia implementację typu \textit{Observable} oraz dużą ilość operatorów (ponad 150), które umożliwiają dowolną manipulację strumieniami danych, ich łączenie, czy odwoływanie w czasie. W kodzie źródłowym \ref{lis:rxjs-example} przedstawiony został przykład wypisania na konsolę potęg liczb, które są mniejsze od 5.
+	
+	\begin{code}[
+		language=javascript,
+		caption={Przykład użycia RxJS (źródło: opracowanie własne)},
+		label={lis:rxjs-example},
+	]
+Observable.of(1, 2, 3)
+    .map(x => x * x)
+    .filter(x => x < 5)
+    .subscribe(x => console.log(x))
+// Wynik:
+// 1
+// 4
+	\end{code}	
+	
+	\subsection{TypeScript}
+	Innym z założeń nowego frameworku, było to, aby był skalowalny. Bez względu na rozmiar aplikacji czytelność kodu nie powinna być skomplikowana. Jednym z takich problemów była trudność określenia typów zmiennych. W dużych programach bardzo łatwo popełnić błąd w nazwie pola obiektu lub pomylić jego typ, a ów problem uwidaczniał się dopiero w trakcie wykonania kodu. Z pomocą przyszedł, stworzony przez Microsoft, TypeScript \cite{typescript-doc}.\par
+	
+	TypeScript jest nadzbiorem JavaScript, to znaczy, że każdy poprawny program w JavaScript jest poprawnym programem w TypeScript, który pozwala na dodawanie statycznego typowania. Jest transpilowany do dowolnych wersji JavaScript, dzięki czemu funkcjonalności z najnowszych wersji ECMAScript nie są już przeszkodą w używaniu na starszych przeglądarkach.\par
+	
+	\begin{code}[
+		language=javascript,
+		caption={Przykład wykrycia błędu w TypeScript (źródło: opracowanie własne)},
+		label={lis:typescript-example},
+	]
+function sayHello(name: string) {
+  console.log("Hello " + name)
+}
+
+sayHello({ name: "John" })
+	\end{code}		
+	
+	Przykład wykrycia błędu pokazano w kodzie źródłowym \ref{lis:typescript-example}. Funkcja \textit{sayHello} przyjmuje imię jako parametr i wita użytkownika komunikatem wyświetlonym w konsoli. Początkowo program wydaje się być poprawny, ale tak nie jest. Należy zwrócić uwagę na to, że funkcja przyjmuje nazwę jako \textit{string}, natomiast wywołana została z obiektem. W JavaScript problem zauważony zostałby dopiero po uruchomieniu programu. W przypadku TypeScript już sam kompilator zwraca błąd: \textit{error TS2345: Argument of type '{ name: string; }' is not assignable to parameter of type 'string'.} 
+	
+	\subsection{Kompilacja AOT}	
+	Aplikacja Angularowa w większości składa się z komponentów i ich szablonów HTML. Przed wyrenderowaniem aplikacji przez przeglądarkę komponenty i szablony są tramspilowane przez kompilator Angulara do wykonywalnego kodu JavaScript. Angular oferuje 2 metody kompilacji: JIT (ang. \textit{Just-in-Time}) oraz AOT (ang. \textit{Ahead-of-Time}) \cite{angular-aot}.\par
+	JIT, jak sama nazwa wskazuje, kompiluje aplikację dopiero w momencie uruchomienia w przeglądarce. Konsekwencją tego jest to, że oprócz samej aplikacji użytkownik musi pobrać również kompilator, który waży około 300kB. Może się to nie wydawać dużo, ale w erze urządzeń mobilnych każdy kilobajt się liczy. Oczywiście kompilowanie w trakcie wykonania posiada kolejny minus w postaci czasu. Im większy czas oczekiwania na interakcję z aplikacją, tym mniejsza ilość odwiedzających użytkowników, dlatego tak ważna jest jak najszybsza gotowość do użycia.\par
+	AOT kompiluje aplikację już w trakcie budowania, a co za tym idzie użytkownik nie potrzebuje już pobierać kompilatora, przez co zaoszczędzi transfer danych i czas. Kolejnym plusem jest dołączenie szablonów HTML i arkuszów stylów CSS bezpośrednio do kodu JavaScript, dzięki czemu eliminuje się wysyłanie zapytań po te pliki. Kompilator AOT również wykrywa i zgłasza błędy wiązania szablonu HTML podczas kompilacji, zanim użytkownicy będą mogli je zobaczyć.
+	
+	\subsection{Podział na warstwy - NativeScript} \label{sec:angular-layers}
+	AngularJS mógł być uruchomiony tylko w środowisku przeglądarki przez to, że był zależny od jQuery. Jednym z celów nowej wersji była możliwość uruchomienia aplikacji w różnych środowiskach. Dlatego zdecydowano się na podział na 2 warstwy \cite{angular-layers}: warstwę aplikacji oraz warstwę renderującą. Warstwa aplikacji zawiera API (ang. \textit{Application Programmin Interface}) oraz środowisko uruchomienia, z którym kod aplikacji komunikuje się bezpośrednio, a warstwa renderująca określa sposób, jak aktualizować UI (ang. \textit{User Interface}). Taka architektura warstwowa umożliwia działanie aplikacji na różnych platformach, tym samym nie zmieniając sposobu jej tworzenia. Aby stworzyć własną warstwę renderującą należy zaimplementować szereg interfejsów, w których struktury Angularowe tłumaczone są na język zrozumiały dla platformy, na której aplikacja miałaby zostać uruchomiona.\par
+	NativeScript jest frameworkiem, który pozwala tworzyć natywne aplikacje mobilne używając Angulara, TypeScriptu lub JavaScriptu. Dzięki posiadaniu własnej warstwy renderującej, na podstawie kodu XML i komponentów renderuje elementy tak, jak miałoby to miejsce w przypadku kodu w Javie na Androida, lub w Swift na iOS.
+	
+	\subsection{Modularność}
+	JavaScript i Angular używają modułów w celu organizacji struktury kodu i chociaż robią to w różny sposób, Angular używa obu tych technik.
+	
+	\subsubsection*{Moduły JavaScript}
+	W JavaScript moduły to pojedyncze pliki z poprawnym kodem JavaScript. Aby sprawić, by pozostałe pliki mogły używać tego kodu wystarczy dopisać słowo kluczowe \textit{export} przed takimi strukturami, jak: funkcje, klasy, stałe, itp. Sposób ten przedstawiono w kodzie źródłowym \ref{lis:javascript-export-import} w linijce \ref{line:js-module-export}. Aby móc korzystać z kodu innych plików należy użyć schematu zaprezentowanego w linijce \ref{line:js-module-import}. Takie rozwiązanie zapobiega między innymi kolizji nazw oraz przypadkowym zmiennym globalnym.
+	
+	\begin{code}[
+		language=javascript,
+		caption={Stosowanie modułów JavaScript (źródło: \cite{javascript-module})},
+		label={lis:javascript-export-import},
+		escapechar=|
+	]
+// app.component.js
+export class AppComponent { ... } |\label{line:js-module-export}|
+
+// main.js
+import { AppComponent } from './app.component'; |\label{line:js-module-import}|
+	\end{code}	
+	
+	\subsubsection*{Moduły Angular}
+	W Angular moduły są to klasy opisane dekoratorem \textit{@NgModule}. Zawierają on metadane na temat tego co dany moduł eksportuje, co importuje, jakie nowe struktury tworzy, od czego jest zależny, itp. W kodzie źródłowym \ref{lis:angular-module} przedstawiono deklarację modułu \textit{AppModule}, który deklaruje nowy komponent \textit{AppComponent} oraz importuje angularowy, zewnętrzny moduł przeglądarki \textit{BrowserModule}. Jak można zauważyć oba rodzaje modułów bardzo dobrze ze sobą współgrają.
+	
+	\begin{code}[
+		language=javascript,
+		caption={Stosowanie modułów Angular (źródło: \cite{javascript-module})},
+		label={lis:angular-module},
+		escapechar=|
+	]
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { AppComponent } from './app.component';
+
+@NgModule({
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    BrowserModule
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+	\end{code}\\
+	
+	Angular jako framework zawiera w sobie wiele gotowych do użycia modułów, których funkcjonalności przedstawiono w tabelce \ref{tab:angular-frequent-modules}.
+	
+	\begin{center}
+    	\begin{table}[ht]
+    	\begin{tabular}{ | l | l | p{5.5cm} |}
+    \hline
+    NgModule & Lokalizacja & Zastosowania \\ \hline
+    BrowserModule & @angular/platform-browser & Kiedy aplikacja jest uruchamiana w przeglądarce \\ \hline
+	CommonModule & @angular/common & Użycie dyrektyw takich jak: NgIf, NgFor, NgSwitch, NgClass, itp. \\ \hline
+	FormsModule & @angular/forms & Podczas tworzenia formularzy opartych na szablonach \\ \hline
+	ReactiveFormsModule & @angular/forms & Podczas tworzenia rektywnych formularzy \\ \hline
+	RouterModule & @angular/router & Routing \\ \hline
+	HttpClientModule & @angular/common/http & Wysyłanie zapytań HTTP typu AJAX \\ \hline
+    \end{tabular}
+    	\caption{Popularne moduły dołączone do Angular i ich zastosowania (źródło: \cite{angular-frequent-modules})}
+    	\label{tab:angular-frequent-modules}
+    	\end{table}
+	\end{center}
+	
+	\subsection{Dołączanie danych}
+	Domyślnie każde dołączenie danych jest jednokierunkowe, dzięki czemu maleje złożoność detekcji zmian. Zdecydowano się na podział na 3 sposoby:
+	
+	\subsubsection*{Jednokierunkowe ze źródła do celu}
+	Stosowane przy dołączaniu do pól komponentu, dodawaniu dodatkowych atrybutów, takich jak \textit{aria-label}, dodawaniu klas, czy stylów lokalnych (ang. \textit{inline}). Składnię i przykładowe użycie przedstawiono w kodzie źródłowym \ref{lis:angular-one-way-binding-to-component}.
+	
+	\begin{code}[
+		language=javascript,
+		caption={Składnia i użycie dołączenia jednokierunkowego ze źródła do celu (źródło: \cite{angular-template-syntax})},
+		label={lis:angular-one-way-binding-to-component},
+		escapechar=|,
+		keywords={},
+	]
+// Syntax
+{{expression}}
+[target]="expression"
+bind-target="expression"
+
+// Use
+<img [src]="heroImageUrl">
+<button [attr.aria-label]="help">help</button>
+<div [class.special]="isSpecial">Special</div>
+<button [style.color]="isSpecial ? 'red' : 'green'">
+	\end{code}
+	
+	\subsubsection*{Jednokierunkowe od celu do źródła}
+	Stosowane podczas reagowania na wydarzenia.	Jako wartość podaje się wyrażenie, które zostanie wywołane dopiero po jego zajściu. Dlatego istnieje bezpośrednia możliwość wywołania funkcji z odpowiednimi parametrami, zamiast przekazywania jej referencji. Składnię i przykładowe użycie przedstawiono w kodzie źródłowym \ref{lis:angular-one-way-binding-from-component}.
+	
+	\begin{code}[
+		language=javascript,
+		caption={Składnia i użycie dołączenia jednokierunkowego od celu do źródła (źródło: \cite{angular-template-syntax})},
+		label={lis:angular-one-way-binding-from-component},
+		escapechar=|,
+		keywords={},
+	]
+// Syntax
+(target)="statement"
+on-target="statement"
+
+// Use
+<button (click)="onSave()">Save</button>
+<div (myClick)="clicked=\$event" clickable>click me</div>
+	\end{code}
+	
+	\subsubsection*{Dwukierunkowe}
+	Stosowane, gdy istnieje potrzeba wyświetlenia i aktualizowania danych, gdy użytkownik przeprowadzi zmiany. Najczęstszą sytuacją jest dołączenie wartości do elementu HTML \textit{<input/>}, której aktualna wartość powinna być pokazana w polu tekstowym, a jej zmiana powinna być odzwierciedlona w stanie aplikacji. Składnię i przykładowe użycie przedstawiono w kodzie źródłowym \ref{lis:angular-two-way-binding}.
+	
+	\begin{code}[
+		language=javascript,
+		caption={Składnia i użycie dołączenia dwukierunkowego (źródło: \cite{angular-template-syntax})},
+		label={lis:angular-two-way-binding},
+		escapechar=|,
+		keywords={},
+	]
+// Syntax
+[(target)]="expression"
+bindon-target="expression"
+
+// Use
+<input [(ngModel)]="name">
+	\end{code}
+	
+	\subsection{Komponenty}
+	Tak jak w AngularJS pozostano przy koncepcji komponentów i dyrektyw. Jednak w tym przypadku to komponenty zostały głównymi strukturami zapewniającymi reużywalność powtarzających się części kodu. Tworzenie komponentów odbywa się za pomocą dekorowania klas dekoratorem \textit{@Component} lub dla dyrektywy \textit{@Directive}. Jako medatadane można przekazać, na przykład: listę animacji komponentu, nazwę selektora, atrybuty wychodzące, sposób detekcji zmian i wiele innych. W kodzie źródłowym \ref{lis:angular-component} przedstawiony został komponent oferujący taką funkcjonalność, jak dyrektywa pokazana w podrozdziale \ref{page:angularjs-directives-and-components} \textit{Dyrektywy i komponenty}.
+	
+	\begin{code}[
+		language=javascript,
+		caption={Użycie komponentu w Angularze (źródło: opracowanie własne)},
+		label={lis:angular-component},
+		escapechar=|
+	]
+// customer.ts
+@Component({
+  selector: 'my-customer',
+  template: `Name: {{customer.name}}, Address: {{customer.address}}`
+})
+export class CustomerComponent {
+  customer = {
+    name: 'Adam',
+    address: 'Belveder st.'
+  }
+}
+  
+// app.html
+<my-customer></my-customer> <!-- Name: Adam, Address: Belveder st. -->
+	\end{code}
+	
+	\subsubsection{Dane wejściowe i wyjściowe}
+	Jednak komponent powinien być elastyczny i pozwalać na ponowne użycie za pomocą danych wejściowych i wyjściowych. W tym celu ponownie zastosowano metodę dekorowania, w tym wypadku pól klas komponentów lub dyrektyw, dekoratorami \textit{@Input} i \textit{@Output}. W kodzie źródłowym \ref{lis:angular-component-input-output-create} pokazany został przykład tego samego komponentu przyjmującego obiekt klienta jako dane wejściowe (linijka \ref{line:angular-input}) oraz emitującego dane wyjściowe (linijka \ref{line:angular-output-use}). W tym wypadku jest to napis emitowany co 1 sekundę.\par
+	W kodzie źródłowym \ref{lis:angular-component-input-output-use} przedstawione zostało użycie  komponentu \textit{CustomerComponent} jako elementu HTML (linijka \ref{line:angular-component-element}). Warto zwrócić uwagę na sposób przekazywania danych jako atrybuty. W atrybucie \textit{[customer]} nawiasy klamrowe informują kompilator, że dane mają zostać dołączone jednokierunkowo do komponentu do polu o tej samej nazwie. W atrybucie \textit{(helloEmitter)} nawiasy klamrowe informują kompilator, że funkcja \textit{greet} powinna być wywołana za każdym razem kiedy nastąpi emisja danych, a jej parametrem ma być ta emitowana wiadomość. Takie oddzielenie składni pozwala na łatwe dostrzeżenie danych wchodzących, jak i wychodzących.
+
+	\begin{code}[
+		language=javascript,
+		caption={Utworzenie komponentu z danymi wejściowymi Angularze (źródło: opracowanie własne)},
+		label={lis:angular-component-input-output-create},
+		escapechar=|
+	]
+// customer.ts
+export interface User {
+  name: string;
+  address: string;
+}
+@Component({
+  selector: 'my-customer',
+  template: `Name: {{customer.name}}, Address: {{customer.address}}`
+})
+export class CustomerComponent implements OnInit, OnDestroy {
+  @Input() customer: User; |\label{line:angular-input}|
+  @Output() helloEmitter = new EventEmitter<string>();
+  private intervalId;
+
+  ngOnInit(): void { |\label{line:angular-ngOnInit}|
+    this.intervalId = setInterval(() => {
+      this.helloEmitter.emit('Hello: ' + this.customer.name); |\label{line:angular-output-use}|
+    }, 1000);
+  }
+  ngOnDestroy(): void { |\label{line:angular-ngOnDestroy}|
+    clearInterval(this.intervalId);
+  }
+}
+	\end{code}
+	
+	\begin{code}[
+		language=javascript,
+		caption={Użycie komponentu z danymi wejściowymi Angularze (źródło: opracowanie własne)},
+		label={lis:angular-component-input-output-use},
+		escapechar=|
+	]
+// app.ts
+@Component({
+  selector: 'app-root',
+  template: `
+<my-customer |\label{line:angular-component-element}|
+  [customer]="myCustomer"
+  (helloEmitter)="greet(\$event)"
+></my-customer> 
+  `
+})
+export class AppComponent {
+  myCustomer: User = {
+    name: 'Adam',
+    address: 'Belveder st.'
+  };
+  greet(message: string) {
+    console.log(message);
+  }
+}
+	\end{code}
+	
+	\subsubsection{Cykl życia}
+	Każdy komponent ma własny cykl życia zarządzany przez framework \cite{angular-lifecycle-hooks}. Angular tworzy komponent, renderuje go, tworzy i renderuje jego dzieci, sprawdza zamianę danych wejściowych i niszczy go przed usunięciem z drzewa DOM. Istnieje możliwość implementacji  jednej lub wielu funkcji wywoływanych właśnie w tych kluczowych momentach. Tak samo zachowują się również dyrektywy.\par
+	Przykład użycia zaprezentowano w kodzie źródłowym \ref{lis:angular-component-input-output-create} w linijkach \ref{line:angular-ngOnInit} i \ref{line:angular-ngOnDestroy}. W metodzie \textit{ngOnInit()}, która wywoływana jest tuż po utworzeniu komponentu, uruchomiony zostaje licznik emitujący co sekundę napis. W metodzie \textit{ngOnDestroy()}, która wywoływana jest tuż przed usunięciem komponentu licznik ten zostaje zatrzymany w celu uniknięcia wycieków pamięci.
+	
+	\subsection{Dyrektywy}
+	W Angularze istnieją 2 rodzaje dyrektyw: atrybutowe i strukturalne. Używa się ich za pomocą atrybutów elementów HTML. Atrybutowe \cite{angular-attribute-directives} zmieniają wygląd lub zachowanie elementu drzewa DOM.  Natomiast strukturalne \cite{angular-structural-directives} manipulują drzewem DOM.\par
+	Angular posiada moduł z kilkoma bardzo przydatnymi dyrektywami strukturalnymi. W kodzie źródłowym \ref{lis:angular-structural-directives} w linijce \ref{line:angular-ngif} użyta została dyrektywa \textit{ngIf}, która usuwa z drzewa DOM element, na którym została użyta, jeśli wyrażenie użyte jako jej wartość jest fałszywe. W linijce \ref{line:angular-ngfor} użyta zostałą dyrektywa \textit{ngFor}, która powiela element, na którym została użyta, tyle razy, ile istnieje elementów w tablicy \textit{customers}. Składnia wyrażenia przypomina tą z pętli \textit{for/of} w ECMAScript 6. Warto zauważyć, że użycie dyrektyw strukturalnych jako atrybutów poprzedzone jest gwiazdką (\textit{*}).
+	
+	\begin{code}[
+		language=javascript,
+		caption={Użycie wbudowanych dyrektyw strukturalnych w Angularze (źródło: opracowanie własne)},
+		label={lis:angular-structural-directives},
+		escapechar=|
+	]
+<div *ngIf="age >= 18"> |\label{line:angular-ngif}|
+  Adult
+</div>
+
+<div *ngFor="let c of customers"> |\label{line:angular-ngfor}|
+  {{c.name}}
+</div>
+	\end{code}
+	
+	\subsection{Filtry}
+	Zdecydowano się również na zachowanie Filtrów, choć teraz pod nazwą \textit{Pipes}. Ich rola pozostała niezmienna, lecz zmienił się tylko sposób ich tworzenia, tak jak pokazano to w kodzie źródłowym \ref{lis:angular-filter}.
+	
+	\begin{code}[
+		language=javascript,
+		caption={Utworzenie i użycie filtru w Angularze (źródło: opracowanie własne)},
+		label={lis:angular-filter}
+	]
+// incrementer.pipe.ts
+@Pipe({
+  name: 'incrementer'
+})
+export class IncrementerPipe implements PipeTransform {
+  transform(value: any, ...args: any[]): any {
+    return value + 1;
+  }
+}
+
+// app.html
+<div>
+	<p>{{5 | incrementer}}</p> <!-- 6 -->
+</div>
+	\end{code} 
+
+	\subsection{Serwisy i wstrzykiwanie zależności}
+	Tak jak AngularJS zdecydowano się na zastosowanie wstrzykiwania zależności. Dostarczenie zależności odbywa się poprzez przekazanie ich jako parametry konstruktora. Dlatego właśnie podczas deklaracji komponentów w modułach przekazuje się ich referencje, a nie utworzone już obiekty. Angular sam znajdzie i zdecyduje które obiekty użyć, a w przypadku ich braku wyrzuci odpowiedni wyjątek.\par
+	Wstrzyknięcie odpowiednich obiektów można zawdzięczyć TypeScriptowi. Tak jak pokazano to w kodzie źródłowym \ref{lis:angular-serwis} przy parametrach konstruktora należy podać typ oczekiwanej wartości. Następnie za pomocą refleksji Angular jest w stanie wykryć jakie obiekty i w jakiej kolejności są potrzebne. Oczywiście istnieje możliwość zależności cyklicznej, czyli takiej, w której komponenty, czy serwisy są zależne od siebie nawzajem. W takim wypadku wstrzyknięcie zależności powinno odbyć się poprzez wstrzyknięcie serwisu \textit{Injector} a następnie wywołaniu na nim metody \textit{get()} z typem zależności cyklicznej.\par
+	Podobnie jak w AngularJS zastosowano koncepcję serwisów. Każda klasa serwisu musi zostać opisana dekoratorem \textit{@Injectable()} a następnie jej referencja przekazana do modułu w tablicy \textit{providers}. Po tych krokach serwis dostępny jest do wykorzystania pozostałym strukturom tego modułu. W kodzie źródłowym \ref{lis:angular-serwis} przedstawiono zachowanie takie jak w kodzie źródłowym \ref{lis:angularjs-serwis}. 
+	
+	\begin{code}[
+		language=javascript,
+		caption={Utworzenie i użycie serwisu w Angularze (źródło: opracowanie własne)},
+		label={lis:angular-serwis},
+		escapechar=|
+	]
+@Injectable()
+export class DateService {
+  getCurrentDate(): Date {
+    return new Date();
+  }
+}
+@Component({selector: 'my-component', template: ''})
+export class MyComponent implements OnInit {
+  constructor(public dateService: DateService) {
+  }
+  ngOnInit(): void {
+    console.log(this.dateService.getCurrentDate());
+  }
+}
+@NgModule({
+  providers: [DateService],
+  declarations: [MyComponent]
+})
+export class MyModule {
+}
+	\end{code} 
+	
+	\subsection{Router}
+	Angular posiada również moduł odpowiedzialny za płynne nawigowanie między widokami. W kodzie źródłowym \ref{lis:angular-router} przedstawiona została konfiguracja routera identyczna w stosunku do tej z kodu źródłowego \ref{lis:angularjs-router}. Obiekt konfiguracyjny należy przekazać do statycznej metody \textit{forRoot} w trakcie importowania modułu do aplikacji.
+	
+	\begin{code}[
+		language=javascript,
+		caption={Konfiguracja routera w Angularze (źródło: opracowanie własne)},
+		label={lis:angular-router},
+		escapechar=|
+	]
+const appRoutes: Routes = [
+  {path: '/shop', component: ShopComponent},
+  {path: '/shop/item/:itemId', component: ShopItemComponent},
+];
+
+@NgModule({
+  imports: [
+    RouterModule.forRoot(
+      appRoutes,
+    )
+  ],
+})
+export class AppModule {
+}
+	\end{code} 
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

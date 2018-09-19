@@ -1,0 +1,29 @@
+<div class="sidepanel">
+  <div class="closed">
+    <div
+      id="toggle-sidepanel"
+      class="toggle-wrapper"
+      (click)="sidePanelService.togglePanel()"
+    >
+      <i class="fa fa-bars"></i>
+    </div>
+  </div>
+  <div
+    class="opened"
+    [ngClass]="{selected: sidePanelService.isOpened}"
+  >
+    <div class="header">
+      <h3 class="name">Configs</h3>
+      <div
+        class="toggle-wrapper"
+        (click)="sidePanelService.togglePanel()"
+      >
+        <i class="fa fa-times"></i>
+      </div>
+    </div>
+
+    <div class="body">
+      <app-sidepanel-body></app-sidepanel-body>
+    </div>
+  </div>
+</div>

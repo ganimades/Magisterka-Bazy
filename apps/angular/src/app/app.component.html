@@ -1,0 +1,53 @@
+<!--suppress ALL -->
+<div class="main-container">
+  <div class="header-container">
+    <h1>
+      Todo List
+    </h1>
+    <app-task-creator></app-task-creator>
+
+    <div class="info-bar">
+      <div
+        id="task-count"
+        class="task-count"
+      >
+        {{taskService.getTasks().length}} tasks
+      </div>
+      <div class="list-types">
+        <i
+          class="fa fa-th-list list-type"
+          [ngClass]="{selected: listTypeService.getListType() === 'list'}"
+          (click)="setListType('list')"
+          title="List"
+        ></i>
+        <i
+          class="fa fa-briefcase list-type"
+          [ngClass]="{selected: listTypeService.getListType() === 'nested-list'}"
+          (click)="setListType('nested-list')"
+          title="Nested List"
+        ></i>
+        <i
+          class="fa fa-th list-type"
+          [ngClass]="{selected: listTypeService.getListType() === 'grid'}"
+          (click)="setListType('grid')"
+          title="Grid"
+        ></i>
+      </div>
+    </div>
+  </div>
+  <ng-container [ngSwitch]="listTypeService.getListType()">
+    <app-task-list
+      class="list-container"
+      *ngSwitchCase="'list'"
+    ></app-task-list>
+    <app-task-grid
+      class="grid-container"
+      *ngSwitchCase="'grid'"
+    ></app-task-grid>
+    <app-task-list-nested
+      class="list-container"
+      *ngSwitchCase="'nested-list'"
+    ></app-task-list-nested>
+  </ng-container>
+</div>
+<app-sidepanel></app-sidepanel>

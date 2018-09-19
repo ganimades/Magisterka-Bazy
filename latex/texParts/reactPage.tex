@@ -1,0 +1,150 @@
+\section{ReactJS}
+	 ReactJS jest to JavaScriptowa biblioteka do budowania interfejsów użytkownika wydana w 2013 roku przez firmę Facebook. Należy zwrócić uwagę, że twórcy określają ją jako bibliotekę, a nie framework, ponieważ jej jedyną funkcjonalnością jest tworzenie UI. Jednak przez framework można rozumieć szkielet do budowy aplikacji, który definiuje jej strukturę oraz ogólny mechanizm działania. ReactJS wpisuje się w tę definicję, dlatego w tej pracy postrzegany będzie właśnie jako framework. W kolejnych podrozdziałach, w przypadku braku funkcjonalności w samym ReactJS, omówione zostaną najpopularniejsze moduły tworzone przez społeczność w ramach oprogramowania o otwartym źródle.
+	 
+	 \subsection{JSX}
+	 JSX (ang. \textit{JavaScript extension}) jest językiem rozszerzającym składnię JavaScript. Najważniejszą jego funkcjonalnością jest możliwość bezpośredniego używania znaczników HTML w kodzie JavaScript. Takiego formatu nie obsługuje żadna przeglądarka, dlatego niezbędnym krokiem jest przekształcenie go do JavaScriptu. W kodzie źródłowym \ref{lis:reactjs-jsx} przedstawiony został przykład, gdzie funkcja \textit{getElement} zwraca element \textit{MyButton} przed i po transpilacji. Warto zwrócić uwagę, że wartości atrybutów mogą być ustawiane dynamicznie, dzięki zamianie cudzysłowów na nawiasy klamrowe (linijka \ref{line:jsx-attrs}).
+	  
+	 \begin{code}[
+		language=javascript,
+		caption={Przykład użycia JSX (źródło: \cite{reactjs-jsx})},
+		label={lis:reactjs-jsx},
+		escapechar=|
+	]
+// Przed
+const getElement = size => (
+  <MyButton color="blue" shadowSize={size}> |\label{line:jsx-attrs}|
+    Click Me
+  </MyButton>)
+// Po
+const getElement = size => (
+  React.createElement(
+    MyButton,
+    { color: 'blue', shadowSize: size },
+    'Click Me'
+  ))
+	\end{code}
+	
+	 \subsection{Redux}
+	 ReactJS nie posiada mechanizmu do globalnego przechowywania stanu aplikacji. W związku z tym najczęściej wybieraną do tego biblioteką jest Redux. Jej cechami są: proste API, przewidywalność i łatwość w testowaniu.\par
+	 Główną ideą jest przechowywanie stanu całej aplikacji w jednym obiekcie, tzw. \textit{store}. Jedynym sposobem na zmianę którejkolwiek z wartości jest wysłanie akcji, czyli obiektu opisującego co się wydarzyło. Aby określić w jaki sposób akcje przekształcają drzewo stanu należy utworzyć reduktory, czyli czyste funkcje, które na podstawie tych samych danych wyjściowych zwrócą zawsze ten sam wynik.
+	 
+	 \begin{code}[
+		language=javascript,
+		caption={Przykład użycia Redux (źródło: opracowanie własne)},
+		label={lis:reactjs-redux},
+		escapechar=|
+	]
+// Store
+const initialState = { |\label{line:redux-store}|
+  name: 'John',
+  age: 15
+}
+// Reducer
+function reducer(state = initialState, action) { |\label{line:redux-reducer}|
+  switch (action.type) {
+    case 'MULTIPLY_AGE_BY':
+      return {
+        ...state,
+        age: state.age * action.payload
+      }
+    default:
+      return state
+  }
+}
+// Action
+const action = { |\label{line:redux-action}|
+  type: 'MULTIPLY_AGE_BY',
+  payload: 2
+}
+dispatch(action)
+
+	\end{code}\\
+	
+	W kodzie źródłowym \ref{lis:reactjs-redux} przedstawiony został przykład wykorzystania  koncepcji oferowanej przez Redux. W linijce \ref{line:redux-store} tworzony jest obiekt \textit{store}, z początkowymi wartościami, przechowujący stan aplikacji. W linijce \ref{line:redux-reducer} tworzony jest reduktor, który na podstawie stanu i akcji definiuje nowy stan. W linijce \ref{line:redux-action} jest tworzona i wysyłana akcja. Całym procesem zarządza Redux.
+	 
+	 \subsection{Komponenty}
+	 Głównymi elementami, z których na składa się ReactJS są, tak jak w Angularze, komponenty. Dzielą UI na niezależne, reużywalne części. Każdy komponent posiada metodę \textit{render()}, która zwraca to, jak powinien wyglądać. Stan komponentu przechowywany jest w polu \textit{state}, którego aktualizacja powinna odbywać się za pomocą metody \textit{setState({...})}, po wywołaniu której ReactJS \blockquote{wie}, kiedy zaktualizować widok, czyli wywołać metodę \textit{render()}. W kodzie źródłowym \ref{lis:reactjs-component-create} przedstawiony został komponent reprezentujący funkcjonalność identyczną, jak w przypadku Angulara (kod źródłowy \ref{lis:angular-component-input-output-create}).
+	 
+	 \subsubsection{Dane wejściowe i wyjściowe}  
+	 W ReactJS istnieje możliwość przekazywania wartości do komponentu. poprzez właściwości (ang. \textit{props}). Dane te są dostępne w komponencie w polu o nazwie \textit{props} tak, jak zrobiono to w kodzie źródłowym \ref{lis:reactjs-component-create} w linijce \ref{reactjs-props-use}. Jako parametr została przekazana funkcja \textit{helloEmitter}, która będzie wywoływana co 1 sekundę z odpowiednim parametrem. Należy mieć na uwadze, że tak dostępne właściwości są tylko do odczytu, to znaczy, że modyfikować je może tylko komponent przekazujący właściwości.
+	 
+	 \subsubsection{Cykl życia}
+	 Tak, jak Angularze, w ReactJS istnieją również funkcje wywoływane przez framework w kluczowych momentach życia komponentu \cite{reactjs-component-doc}. Przykład użycia zaprezentowano w kodzie źródłowym \ref{lis:reactjs-component-create}, gdzie metoda \textit{componentDidMount()} wykonywana jest zaraz po utworzeniu komponentu, w której do stanu komponentu zapisywany jest identyfikator funkcji emitującej co sekundę wydarzenie. W metodzie \textit{componentWillUnmount()}, która wywoływana jest tuż przez usunięciem komponentu przeprowadzane jest czyszczenie wszystkich liczników, które powodowałyby wycieki pamięci.
+	 
+	 \begin{code}[
+		language=javascript,
+		caption={Utworzenie komponentu z danymi wejściowymi w ReactJS (źródło: opracowanie własne)},
+		label={lis:reactjs-component-create},
+		escapechar=|
+	]
+export class MyCustomer extends React.Component {
+  componentDidMount() {
+    this.setState({
+      intervalId: setInterval(() => {
+        this.props.helloEmitter('Hello: ' + this.customer.name) |\label{reactjs-props-use}|
+      }, 1000)
+    })
+  }
+  componentWillUnmount() {
+    clearInterval(this.state.intervalId)
+  }
+  render() {
+    return (
+      <span>
+        Name: {this.props.customer.name},
+        Address: {this.props.customer.address}
+      </span>
+    )
+  }
+}
+	\end{code}
+	
+	 \begin{code}[
+		language=javascript,
+		caption={Użycie komponentu z danymi wejściowymi w ReactJS (źródło: opracowanie własne)},
+		label={lis:reactjs-component-use},
+		escapechar=|
+	]
+export class App extends React.Component {
+  state = {
+    myCustomer: {
+      name: 'Adam',
+      address: 'Belveder st.'
+    }
+  }
+  constructor(props) {
+    super(props)
+    this.greet = ::this.greet
+  }
+  greet(message) {
+    console.log(message);
+  }
+  render() {
+    return (
+      <MyCustomer 
+          customer={this.state.myCustomer}
+          helloEmitter={this.greet}
+      />
+    )
+  }
+}
+	\end{code}
+	 
+	 \subsection{React-Native}
+	 React-Native jest frameworkiem, który przejmuje rolę renderowania komponentów natywnie na urządzeniach mobilnych. Nie renderuje tego we wbudowanym \textit{web-view}, który tylko próbuje naśladować natywne elementy, ale właśnie za pomocą tych natywnych na platformy, na której się wykonuje, czyli Android lub iOS. Dzięki takiemu zabiegowi aplikacja staje się bardziej wydajna, a proces tworzenia się prawie nie zmienia.
+	 \subsection{Router}
+	 ReactJS nie posiada wbudowanej nawigacji między widokami, dlatego aplikacje muszą korzystać z zewnętrznych pluginów. Najpopularniejszym z nich jest React-Router \cite{reactjs-router}. Konfiguracja polega na użyciu komponentu \textit{Route} z parametrem \textit{path}, określającym ścieżkę URL oraz \textit{componentent}, definiującym, który komponent powinien zostać wyrenderowany w przypadku pasującej ścieżki URL.
+	 
+	 \begin{code}[
+		language=javascript,
+		caption={Konfiguracja Routera w ReactJS (źródło: opracowanie własne)},
+		label={lis:reactjs-router},
+		escapechar=|
+	]
+const RouterConfig = () => (
+  <Router>
+    <Route path="/shop" component={ShopComponent} />
+    <Route path="/shop/item/:itemId" component={ShotItemComponent} />
+  </Router>
+)
+	\end{code}

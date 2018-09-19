@@ -1,0 +1,22 @@
+<StackLayout class="sidepanel">
+  <Button
+    *ngIf="!sidePanelService.isOpened"
+    id="open-sidepanel"
+    (tap)="sidePanelService.togglePanel()"
+    text="Open Sidebar"
+  ></Button>
+  <StackLayout
+    *ngIf="sidePanelService.isOpened"
+  >
+    <Button
+      id="close-sidepanel"
+      (tap)="sidePanelService.togglePanel()"
+      text="close Sidebar"
+    ></Button>
+    <Label
+      class="h3"
+      text="Configs"
+    ></Label>
+    <app-sidepanel-body></app-sidepanel-body>
+  </StackLayout>
+</StackLayout>

@@ -1,0 +1,44 @@
+{
+  "name": "webdriver-ts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "compile": "tsc",
+    "build": "tsc",
+    "build-watch": "tsc --watch",
+    "selenium": "node dist/webdriver-ts/src/benchmarkRunner.js",
+    "checkSelenium": "node dist/webdriver-ts/src/benchmarkRunner.js --check true",
+    "results": "npm run interactive-results",
+    "static-results": "echo \"no longer supported\" && exit 1",
+    "interactive-results": "node dist/webdriver-ts/src/createResultJS.js && cd .. && cd webdriver-ts-results && npm run build",
+    "index": "node dist/webdriver-ts/src/createIndex.js",
+    "check": "node dist/webdriver-ts/src/runCheck.js",
+    "nonKeyed": "node dist/webdriver-ts/src/nonKeyed.js",
+    "appium": "appium",
+    "appium-doctor": "appium-doctor"
+  },
+  "author": "",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "chromedriver": "2.37.0",
+    "dot": "1.1.2",
+    "jstat": "1.7.1",
+    "lighthouse": "2.9.4",
+    "lodash": "4.17.5",
+    "ramda": "^0.25.0",
+    "selenium-webdriver": "4.0.0-alpha.1",
+    "yargs": "11.0.0"
+  },
+  "devDependencies": {
+    "@types/lodash": "4.14.107",
+    "@types/node": "9.6.5",
+    "@types/ramda": "^0.25.23",
+    "@types/selenium-webdriver": "3.0.8",
+    "@types/yargs": "11.0.0",
+    "appium": "^1.8.0",
+    "appium-doctor": "^1.4.3",
+    "typescript": "2.8.1"
+  }
+}

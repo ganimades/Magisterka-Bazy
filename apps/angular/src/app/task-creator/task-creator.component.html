@@ -1,0 +1,23 @@
+<form
+  [formGroup]="newTaskForm"
+  (ngSubmit)="newTaskForm.valid && createTask()"
+>
+  <div class="input-group mb-3">
+    <input
+      type="text"
+      class="form-control"
+      placeholder="New task"
+      formControlName="taskName"
+    />
+    <div class="input-group-append">
+      <button
+        class="btn btn-outline-primary"
+        type="submit"
+        [disabled]="newTaskForm.invalid"
+      >
+        <i class="fa fa-plus"></i>
+        Add
+      </button>
+    </div>
+  </div>
+</form>

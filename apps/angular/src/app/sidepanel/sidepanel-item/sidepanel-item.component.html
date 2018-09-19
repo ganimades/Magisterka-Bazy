@@ -1,0 +1,14 @@
+<div class="item">
+  <div class="key">
+    {{label}}
+  </div>
+  <div class="value">
+    <button
+      [id]="clickId || ''"
+      class="btn btn-outline-secondary btn-sm"
+      (click)="action.emit()"
+    >
+      Apply
+    </button>
+  </div>
+</div>

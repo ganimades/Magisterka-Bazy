@@ -1,0 +1,74 @@
+<div class="sidepanel-body">
+  <div class="section">
+    <div class="name">
+      Layout
+    </div>
+    <app-sidepanel-item
+      clickId="layout-list"
+      label="List"
+      (action)="listTypeService.setListType('list')"
+    ></app-sidepanel-item>
+    <app-sidepanel-item
+      clickId="layout-nested-list"
+      label="Nested List"
+      (action)="listTypeService.setListType('nested-list')"
+    ></app-sidepanel-item>
+    <app-sidepanel-item
+      clickId="layout-grid"
+      label="Grid"
+      (action)="listTypeService.setListType('grid')"
+    ></app-sidepanel-item>
+  </div>
+
+  <div class="section">
+    <div class="name">
+      Utils
+    </div>
+    <app-sidepanel-item
+      clickId="utils-clearAll"
+      label="Clear All"
+      (action)="taskService.clearAll()"
+    ></app-sidepanel-item>
+  </div>
+
+  <div class="section">
+    <div class="name">
+      Generators
+    </div>
+    <app-sidepanel-item
+      clickId="gen-default"
+      label="Default"
+      (action)="genDefault()"
+    ></app-sidepanel-item>
+    <app-sidepanel-item
+      clickId="gen-random100"
+      label="Random 100"
+      (action)="genRandom100()"
+    ></app-sidepanel-item>
+    <app-sidepanel-item
+      clickId="gen-random500"
+      label="Random 500"
+      (action)="genRandom500()"
+    ></app-sidepanel-item>
+    <app-sidepanel-item
+      clickId="gen-random1k"
+      label="Random 1k"
+      (action)="genRandom1k()"
+    ></app-sidepanel-item>
+    <app-sidepanel-item
+      clickId="gen-random5k"
+      label="Random 5k"
+      (action)="genRandom5k()"
+    ></app-sidepanel-item>
+    <app-sidepanel-item
+      clickId="gen-random10k"
+      label="Random 10k"
+      (action)="genRandom10k()"
+    ></app-sidepanel-item>
+    <app-sidepanel-item
+      clickId="gen-random20k"
+      label="Random 20k"
+      (action)="genRandom20k()"
+    ></app-sidepanel-item>
+  </div>
+</div>

@@ -1,0 +1,12 @@
+<FlexboxLayout class="item">
+  <Label
+    class="key"
+    [text]="label"
+  ></Label>
+  <Button
+    class="value"
+    [id]="clickId || ''"
+    (tap)="action.emit()"
+    text="Apply"
+  ></Button>
+</FlexboxLayout>

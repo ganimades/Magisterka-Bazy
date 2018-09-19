@@ -1,0 +1,33 @@
+{
+  "name": "react-native-app",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start": "react-native start",
+    "android": "react-native run-android",
+    "ios": "react-native run-ios",
+    "test": "jest",
+    "build-android": "cd android && gradlew assembleRelease",
+    "build-android-debug": "cd android && gradlew assembleDebug",
+    "install-android": "adb install -r ./android/app/build/outputs/apk/app-release.apk"
+  },
+  "jest": {
+    "preset": "react-native"
+  },
+  "dependencies": {
+    "@types/selenium-webdriver": "^3.0.8",
+    "react": "^16.3.1",
+    "react-native": "~0.55.2",
+    "react-redux": "^5.0.7",
+    "redux": "^4.0.0"
+  },
+  "devDependencies": {
+    "appium": "^1.8.0",
+    "appium-doctor": "^1.4.3",
+    "babel-preset-react-native-stage-0": "^1.0.1",
+    "jest": "^22.4.3",
+    "jest-react-native": "^18.0.0",
+    "react-test-renderer": "16.3.1",
+    "wd": "^1.6.2"
+  }
+}
