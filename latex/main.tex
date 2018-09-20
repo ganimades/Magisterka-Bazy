@@ -129,7 +129,7 @@
 
 %Define new block, so that if a code is split between 2 pages, then it moves it to the second one.
 \lstnewenvironment{code}[1][]{
-   \noindent\newline
+   \noindent
    \minipage{\linewidth} 
    \vspace{0.5\baselineskip}
    \lstset{
@@ -139,8 +139,8 @@
    showspaces=false,
    numbers=left,
    numberstyle=\footnotesize,
-   numbersep=4pt,
-   tabsize=1,
+   numbersep=9pt,
+   tabsize=2,
    breaklines=true,
    showtabs=false,
    captionpos=b,
@@ -211,9 +211,9 @@
 
 \include{texParts/applicationDescryptionPage}
 
-\include{texParts/testAnalisePage}
-
 \include{texParts/implementationPage}
+
+\include{texParts/testAnalisePage}
 
 \include{texParts/summaryPage}
 %\include{texParts/angularPage} \label{angular-section}

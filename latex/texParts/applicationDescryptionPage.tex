@@ -4,7 +4,7 @@
 
 \subsection{Aplikacja}
 
- W~celu przeprowadzenia testów wybranych baz danych stworzona została aplikacja umożliwiająca przetestowanie szybkości baz danych w~systemie iOS. Na rysunku 4.1 znajdującym się poniżej pokazany został pierwszy ekran aplikacji umożliwiający wybranie baz danych do testów. 
+ W~celu przeprowadzenia testów wybranych baz danych stworzona została aplikacja umożliwiająca przetestowanie szybkości baz danych w~systemie iOS. Na rysunku 4.1 pokazany został pierwszy ekran aplikacji umożliwiający wybranie baz danych do testów. 
 
 \begin{figure}[h]
 \centering
@@ -55,7 +55,7 @@ Zaprojektowany schemat bazy umożliwia przetestowanie działania baz danych przy
 \begin{figure}[h]
 \centering
 	\includegraphics[width=\linewidth]{img/database/document-sheme.png}
-	\caption{Schemat basy danych dla Realm i~Core Data}
+	\caption{Schemat bazy danych dla Realm i~Core Data}
 	\label{fig: nosql_data_scheme}
 \end{figure}
 
@@ -67,46 +67,46 @@ Dla domyślnej bazy użytkownika - User Defaults struktura zapisywanych obiektó
 
 \subsection{Testowane operacje}
 
- W~ramach analizy zostały przetestowane operacje CRUD - zapis, odczyt, uaktualnienie i~usuwanie danych. W~celu uzyskania jak najbardziej poprawnych wyników testy zostały przeprowadzone stukrotnie a~wyniki przedstawiane w~analizie są uśrednieniem wszystkich stu operacji dla danego testu. Przeprowadzenie operacji więcej niż jeden raz ma ogromne znaczenie, ponieważ otrzymane czasy operacji zależne są od obciążenia urządzenia w~danym czasie. Wszystkie testy zostały przeprowadzone na  urządzeniu iPhone 6s. \par
+ W~ramach analizy zostały przetestowane operacje CRUD - zapis, odczyt, uaktualnienie i~usuwanie danych. W~celu uzyskania jak najbardziej poprawnych wyników testy zostały przeprowadzone stukrotnie, a~wyniki przedstawiane w~analizie są uśrednieniem wszystkich stu operacji dla danego testu. Przeprowadzenie operacji więcej niż jeden raz ma ogromne znaczenie, ponieważ otrzymane czasy operacji zależne są od obciążenia urządzenia w~danym czasie. Wszystkie testy zostały przeprowadzone na  urządzeniu iPhone 6s. \par
 
 Testy były przeprowadzone dla następujących operacji: 
 \begin{itemize}
 	 \item Zapis
   
   	\begin{itemize}
-    		\item Zapisz wszystkich danych do bazy
+    		\item Zapisz wszystkich danych do bazy.
 	 \end{itemize}
 
 	  \item Odczyt
 	  
    	  \begin{itemize}
-   		 \item Odczyt wszystkich danych z~tabel
-	     \item Wyszukanie wszystkich autorów o~imieniu "Diena"
-   		 \item Wyszukanie 2 książek z~największa liczbą autorów
-     	\item Odczyt maksymalnie 20 wydawnictw z~największą liczba wydanych książek i~posortowanie wyniku rosnąco   
+   		 \item Odczyt wszystkich danych z~tabel.
+	     \item Wyszukanie wszystkich autorów o~imieniu "Diena".
+   		 \item Wyszukanie 2 książek z~największa liczbą autorów.
+     	\item Odczyt maksymalnie 20 wydawnictw z~największą liczba wydanych książek i~posortowanie wyniku rosnąco.
   		\end{itemize}
   		
  	  \item Edycja
 
  	  	\begin{itemize}
-	    		\item Edycja imienia autora "Diena" na "Alona"
-	    		\item Edycja daty wydania książek na obecna datę
+	    		\item Edycja imienia autora "Diena" na "Alona".
+	    		\item Edycja daty wydania książek na obecna datę.
 		 \end{itemize}
 
 	   \item Usuwanie
 	   
 	    	\begin{itemize}
-	    		\item Usunięcie wszystkich danych
-	    		\item Usunięcie wszystkich autorów którzy wydali 3 książki
-	    		\item Usunięcie wydawnictw które wydały książki o~tytułach "Annie Oakley" lub "Tokyo Zombie (Tky zonbi)"
+	    		\item Usunięcie wszystkich danych.
+	    		\item Usunięcie wszystkich autorów, którzy wydali 3 książki.
+	    		\item Usunięcie wydawnictw, które wydały książki o~tytułach "Annie Oakley" lub "Tokyo Zombie (Tky zonbi)".
 		 \end{itemize}	 
 \end{itemize}
 
- W~celu otrzymania dokładnych wyników świadczących o~wydajności bazy danych testy były projektowane tak, aby operowały one na wszystkich danych zawartych w~tabelach, a~także na niektórych z~wybranych podczas zapytania. Zapewnia to lepszy obraz wydajności bazy danych, kiedy istnieje potrzeba przetworzenia wszystkich danych w~danej tabeli lub kiedy należy przeprowadzić operacje na kilku rekordach. 
+ W~celu otrzymania dokładnych wyników świadczących o~wydajności bazy danych, testy były projektowane tak, aby operowały one na wszystkich danych zawartych w~tabelach, a~także na wybranych rekordach podczas zapytania. Zapewnia to lepszy obraz wydajności bazy danych, kiedy istnieje potrzeba przetworzenia wszystkich danych w~danej tabeli lub kiedy należy przeprowadzić operacje na kilku rekordach. 
 
 \subsection{Dane testowe}
 
-Jak wspomniano w~rozdziale  4 podczas opisu aplikacji, przed wykonaniem testu możliwy jest wybór zestawu danych testowych. Zestaw duży to tysiąc danych, zestaw średni to sto danych testowych a~zestaw mały to 10 danych. Liczba danych dla każdej z~tabel (Autor, Książka, Wydawnictwo) w~zależności od wielkości zestawu danych przedstawiony został w~tabeli \ref{tab: zestaw_danych}.
+Jak wspomniano w~rozdziale  4 podczas opisu aplikacji, przed wykonaniem testu możliwy jest wybór zestawu danych testowych. Zestaw duży to tysiąc danych, zestaw średni to sto danych testowych, a~zestaw mały to 10 danych. Liczba danych dla każdej z~tabel (Autor, Książka, Wydawnictwo), w~zależności od wielkości zestawu danych, przedstawiony został w~tabeli \ref{tab: zestaw_danych}.
 
 \begin{table}[h]
 \centering
@@ -143,27 +143,27 @@ Cały proces testów przedstawia rysunek 5.1.  Pierwszym etapem jest przekształ
 	 \item Zapis danych - w~pętli wykonywane są następujące operacje:
 	 
 	 \begin{enumerate}
-	 \item Wygenerowanie danych
-	 \item Wyczyszczenie bazy danych
-	 \item Wykonanie zapisu danych do bazy
+	 \item Wygenerowanie danych.
+	 \item Wyczyszczenie bazy danych.
+	 \item Wykonanie zapisu danych do bazy.
 	 \end{enumerate}
 	 
 	 \item Odczyt danych:
 	 
 	  \begin{enumerate}
-	 \item Wygenerowanie danych
-	 \item Wyczyszczenie bazy danych
-	 \item Wykonanie zapisu danych do bazy
-	 \item W~pętli wykonywana zostaje operacja odczytania danych i~pomiar czasów
+	 \item Wygenerowanie danych.
+	 \item Wyczyszczenie bazy danych.
+	 \item Wykonanie zapisu danych do bazy.
+	 \item W~pętli wykonywana zostaje operacja odczytania danych i~pomiar czasów.
 	 \end{enumerate}
 	 
 	 \item Usuwanie i~edycja danych - w~pętli wykonywane są następujące operacje:
 	 
 	 \begin{enumerate}
-	 \item Wygenerowanie danych
-	 \item Wyczyszczenie bazy danych
-	 \item Wykonanie zapisu danych do bazy
-	 \item Wykonanie operacji usuwania lub edycji danych i~pomiar czasów
+	 \item Wygenerowanie danych.
+	 \item Wyczyszczenie bazy danych.
+	 \item Wykonanie zapisu danych do bazy.
+	 \item Wykonanie operacji usuwania lub edycji danych i~pomiar czasów.
 	 \end{enumerate}
 	 
 \end{itemize}

@@ -451,7 +451,7 @@ Test wyszukania książek z~największą liczbą autorów wymagał wspierania si
 
 Wykres \ref{fig: read-by-books-small} przedstawia rezultaty wyszukanie 2 książek z~największa liczbą autorów w~przypadku użycia małego zestawu danych. Najszybsza okazała się Core Data uzyskując czas równy 0.25 ms. Z~małą ilością danych dobrze poradziła sobie też Domyślna Baza Użytkownika uzyskując rezultat 0.37 ms. Trzeci w~kolejności jest SQLite z~czasem 0.61 ms. Ponownie wolniejszy od SQLite okazał się FMDB, zwrócił on rezultat w~czasie 1.07 ms. Najwolniejsza jest baza Realm, uzyskała ona czas 1.61 ms.
 
-Dane przedstawione na wykresie \ref{fig: read-by-books-medium} pokazują rezultatu testu z~użyciem średniego zestawu danych. Core Data uzyskała najmniejszy czas 0.58 ms jest to rezultat o~55\% większy od testu z~małym zestawem danych. SQLite zakończył zadanie w~czasie 0.87 ms, zaś FMDB ponownie okazał się wolniejszy od SQLite uzyskując czas 1.43 ms. Przedostatni rezultat uzyskał Realm, czas operacji wyniósł 2.18 ms. Domyślna Baza Użytkownika po raz kolejny podczas zwiększenia ilości danych uzyskuję znacznie gorsze wyniki. Baza zwróciła rezultat w~czasie 2.34 ms i~kolejny raz jest to rezultat większy o~85\% od testu na małym zestawie danych. 
+Dane przedstawione na wykresie \ref{fig: read-by-books-medium} pokazują rezultatu testu z~użyciem średniego zestawu danych. Core Data uzyskała najmniejszy czas 0.58 ms jest to rezultat o~55\% większy od testu z~małym zestawem danych. SQLite zakończył zadanie w~czasie 0.87 ms, zaś FMDB ponownie okazał się wolniejszy od SQLite uzyskując czas 1.43 ms. Przedostatni rezultat uzyskał Realm, czas operacji wyniósł 2.18 ms. Domyślna Baza Użytkownika po raz kolejny, podczas zwiększenia ilości danych uzyskuje znacznie gorsze wyniki. Baza zwróciła rezultat w~czasie 2.34 ms i~kolejny raz jest to rezultat większy o~85\% od testu na małym zestawie danych. 
 
 Test z~użyciem dużego zestawu danych, którego wyniki widoczne są na wykresie \ref{fig: read-by-books-big} pokazuje przewagę SQL-a w~operacjach na dużej liczbie danych. Najszybsze okazują się tu bazy SQLite i~FMDB. SQLite uzyskał czas 3.60 ms zaś FMDB 4.03 ms. Trzeci rezultat uzyskała Core Data, potrzebowała ona 90\% czasu więcej niż w~teście poprzednim, lecz w~dalszym ciągu ukończyła zadanie z~dobrym czasem wynoszącym 8.63 ms. Jedną z~najwolniejszych baz okazał się Realm, zrealizował on zapytanie w~czasie 14.79 ms. Najwolniejsza okazała się ponownie Domyślna Baza Użytkownika, uzyskując czas 21.15 ms. 
 
@@ -484,9 +484,9 @@ Powyższy test pokazuję przewagę rozwiązań SQL w~bardziej skomplikowanych op
 
 Przy użyciu średniego zestawu danych najszybsza jest baza SQLite, wynik otrzymany zostaje w~czasie 0.30 ms. Kolejny raz Core Data jest o~0.04 ms wolniejsza, rezultat zostaje zwrócony po 0.34 ms. Domyślna Baza Użytkownika uzyskała gorszy rezultat niż w~przypadku małego zestawu danych, uzyskała czas 0.38 ms. Przedostatnie miejsce kolejny raz zajmuje FMDB, wykonując operacje w~czasie 0.94 ms. Kolejny raz najwyższy czas należy do Realm wynosi on 1.51 ms i~jest on jedynie o~0.01 ms większy niż w~poprzednim teście.\par
 
-Podczas testów z~wykorzystaniem największego zestawu danych najlepszy rezultat ponownie należy do SQLite, uzyskał on czas 0.73 ms. Core Data kolejny raz jest za SQLite z~czasem 1.04 ms. Lepszy wynik prezentuje FMDB, wykonując operacje odczytu w~czasie 1.35 ms. Jednym z~wolniejszych rozwiązań jest Realm, zakończenie odczytu nastąpiło w~czasie 3.35 ms. Najwolniejsza jest Domyślna Baza Użytkownika, kończąc operacje w~czasie 4.05 ms. 
+Podczas testów z~wykorzystaniem największego zestawu danych, najlepszy rezultat ponownie należy do SQLite, uzyskał on czas 0.73 ms. Core Data kolejny raz jest za SQLite z~czasem 1.04 ms. Lepszy wynik prezentuje FMDB, wykonując operacje odczytu w~czasie 1.35 ms. Jednym z~wolniejszych rozwiązań jest Realm, zakończenie odczytu nastąpiło w~czasie 3.35 ms. Najwolniejsza jest Domyślna Baza Użytkownika, kończąc operacje w~czasie 4.05 ms. 
 
-Prezentowane wyniki pokazują, że w~przypadku małej ilości danych w~tego typu operacji dobrze spisuję się Domyślna Baza Użytkownika, lecz traci ona swoją wydajność w~przypadku dużych ilości danych. Przy większej ilości danych i~dodatkowych operacjach takich jak sortowanie wyniku znacznie lepiej spisują się rozwiązania SQL (SQLite i~FMDB), a~także Core Data. Dokumentowa baza Realm okazała się najmniej wydajna w~przedstawionym teście. 
+Prezentowane wyniki pokazują, że w~przypadku małej ilości danych w~tego typu operacji dobrze spisuje się Domyślna Baza Użytkownika, lecz traci ona swoją wydajność w~przypadku dużych ilości danych. Przy większej ilości danych i~dodatkowych operacjach takich jak sortowanie wyniku znacznie lepiej spisują się rozwiązania SQL (SQLite i~FMDB), a~także Core Data. Dokumentowa baza Realm okazała się najmniej wydajna w~przedstawionym teście. 
 
 \subsection{Testy usuwania danych}
 
@@ -494,8 +494,8 @@ Podrozdział przedstawia testy usuwania danych w~kilku różnych scenariuszach:
 
 \begin{itemize}
 \item Usunięcie wszystkich danych.
-\item Usunięcie wszystkich autorów którzy wydali 3 książki.
-\item Usunięcie wydawnictw które wydały książki o~tytułach "Annie Oakley" lub "Tokyo Zombie (Tky zonbi)".
+\item Usunięcie wszystkich autorów, którzy wydali 3 książki.
+\item Usunięcie wydawnictw, które wydały książki o~tytułach "Annie Oakley" lub "Tokyo Zombie (Tky zonbi)".
 \end{itemize}
 
 Testu usuwania danych przedstawiają różne stopnie skomplikowania operacji. Usunięcie wszystkich danych jest standardowym czyszczeniem bazy danych, podczas którego czyszczone są wszystkie rekordy we wszystkich tablicach. Usunięcie wszystkich autorów, którzy wydali 3 książki, jest to operacja wymagająca zliczenia książek i~wybraniu odpowiednich rekordów do usunięcia. Usunięcie wydawnictw, które wydały książki o~tytułach "Annie Oakley" lub "Tokyo Zombie (Tky zonbi)" wymaga przeszukania relacji jeden do wielu wydawnictwo - książka, porównaniu nazw i~usunięciu odpowiednich rekordów z~tablicy wydawnictwo. 
@@ -523,69 +523,69 @@ Testu usuwania danych przedstawiają różne stopnie skomplikowania operacji. Us
 	\label{fig: delete-all-big}
 \end{figure}
 
-Usunięcie wszystkich danych przy małym zestawie danych pokazuje, że najszybsza jest Domyślna Baza Użytkownika operacja zakończyła się po 0.13 ms. Realm uzyskał drugi czas wynoszący 1.51 ms. Core Data uzyskała rezultat znacznie wyższy od poprzednich dwóch baz danych i~usunęła dane w~czasie 11.65 ms. Najgorzej wypadły bazy SQL, FMDB wyczyścił tablice w~czasie 21.88 ms. Najwolniejszy był SQLite uzyskując czas 27.13 ms. 
+Usunięcie wszystkich danych przy małym zestawie danych pokazuje, że najszybsza jest Domyślna Baza Użytkownika, operacja zakończyła się po 0.13 ms. Realm uzyskał drugi czas wynoszący 1.51 ms. Core Data uzyskała rezultat znacznie wyższy od poprzednich dwóch baz danych i~usunęła dane w~czasie 11.65 ms. Najgorzej wypadły bazy SQL, FMDB wyczyścił tablice w~czasie 21.88 ms. Najwolniejszy był SQLite uzyskując czas 27.13 ms. 
 
-Test przeprowadzony na średnim zestawie danych kolejny raz pokazuję, że najszybsza jest Domyślna Baza Użytkownika uzyskała ona czas 0.12 ms. Drugi czas ponownie osiąga Realm i~jest on równy 1.84 ms. Core Data także w~tym teście znacząco wolniej usuwa dane, czas wyniósł 12.38 ms. SQLite wraz ze wzrostem ilości danych osiągnął rezultat lepszy niż w~poprzednim teście i~ukończył operacje w~21.89 ms. Najwolniejszy tym razem jest FMDB uzyskując czas 23.14 ms. 
+Test przeprowadzony na średnim zestawie danych kolejny raz pokazuję, że najszybsza jest Domyślna Baza Użytkownika, uzyskała ona czas 0.12 ms. Drugi czas ponownie osiąga Realm i~jest on równy 1.84 ms. Core Data także w~tym teście znacząco wolniej usuwa dane, czas wyniósł 12.38 ms. SQLite wraz ze wzrostem ilości danych osiągnął rezultat lepszy niż w~poprzednim teście i~ukończył operacje w~21.89 ms. Najwolniejszy tym razem jest FMDB uzyskując czas 23.14 ms. 
 
- W~przypadku dużego zestawu danych ponownie najlepszy rezultat należy do Domyślnej Bazy Użytkownika wynosi on 0.02 ms. Ponownie też Realm jest na drugim miejscu, uzyskując czas 2.49 ms. SQLite w~porównaniu do poprzedniego testu wykonał operacje szybciej pomimo większej ilości danych. Czas uzyskany przez SQLite wynosi 21.37 i~jest o~0.51 mniejszy niż przy użyciu średniego zestawu danych. Różnica ta wynika z~obecnego stanu urządzenia, można więc przyjąć, że operacja wykonana została w~takim samym czasie. Core Data i~FMDB uzyskały takie same czasy wynoszące 22.87 ms. 
+ W~przypadku dużego zestawu danych ponownie najlepszy rezultat należy do Domyślnej Bazy Użytkownika wynosi on 0.02 ms. Ponownie też Realm jest na drugim miejscu, uzyskując czas 2.49 ms. SQLite w~porównaniu do poprzedniego testu wykonał operacje szybciej, pomimo większej ilości danych. Czas uzyskany przez SQLite wynosi 21.37 i~jest o~0.51 mniejszy niż przy użyciu średniego zestawu danych. Różnica ta wynika z~obecnego stanu urządzenia, można więc przyjąć, że operacja wykonana została w~takim samym czasie. Core Data i~FMDB uzyskały takie same czasy wynoszące 22.87 ms. 
 
-Test pokazuje, że niezależnie od zestawu danych najszybsza podczas usuwania wszystkich danych jest Domyślna Baza Użytkownika. Szybki jest też Realm jego czasy w~stosunku do zwiększającej się ilości danych nie rosną znacząco. SQLite ponownie pokazuję, że doskonale radzi sobie podczas dużej ilości danych, zaś jego wydajność podczas niewielkiej ilości rekordów nie jest zadowalająca. Rezultaty Core Data są zależne od ilości danych i~wydajność bazy spada wraz ze wzrostem ilości rekordów. Najwolniejszy w~teście okazał się wraper FMDB, zaprezentował on najmniejszą wydajność podczas testów. 
+Test pokazuje, że niezależnie od zestawu danych najszybsza podczas usuwania wszystkich danych jest Domyślna Baza Użytkownika. Szybki jest też Realm, jego czasy w~stosunku do zwiększającej się ilości danych nie rosną znacząco. SQLite ponownie pokazuję, że doskonale radzi sobie podczas dużej ilości danych, zaś jego wydajność podczas niewielkiej ilości rekordów nie jest zadowalająca. Rezultaty Core Data są zależne od ilości danych i~wydajność bazy spada wraz ze wzrostem ilości rekordów. Najwolniejszy w~teście okazał się wraper FMDB, zaprezentował on najmniejszą wydajność podczas testów. 
 
 \subsubsection{Usunięcie wszystkich autorów którzy wydali 3 książki}
 
 \begin{figure}[H]
     \centering\includegraphics[width=\linewidth]{img/delete_data/delete_by_author/delete_by_author_small_test.png}
-    \caption{Usunięcie wszystkich autorów którzy wydali 3 książki - mały zestaw danych}
+    \caption{Usunięcie wszystkich autorów, którzy wydali 3 książki - mały zestaw danych}
     \label{img: delete-by-author-small}
 \end{figure}
 
 \begin{figure}[H]
     \centering\includegraphics[width=\linewidth]{img/delete_data/delete_by_author/delete_by_author_medium_test.png}
-    \caption{Usunięcie wszystkich autorów którzy wydali 3 książki - średni zestaw danych}
+    \caption{Usunięcie wszystkich autorów, którzy wydali 3 książki - średni zestaw danych}
     \label{img: delete-by-author-medium}
 \end{figure}
 
 \begin{figure}[H]
     \centering\includegraphics[width=\linewidth]{img/delete_data/delete_by_author/delete_by_author_big_test.png}
-    \caption{Usunięcie wszystkich autorów którzy wydali 3 książki - duży zestaw danych}
+    \caption{Usunięcie wszystkich autorów, którzy wydali 3 książki - duży zestaw danych}
     \label{img: delete-by-author-big}
 \end{figure}
 
-Wyniki testów usunięcie wszystkich autorów którzy wydali 3 książki w~przypadku użycia małego zestawu danych widoczne są na wykresie \ref{img: delete-by-author-small}.  Najniższy czas wynoszący 0.29 ms uzyskała Domyślna Baza Użytkownika. Drugi co do wielkości czas należy do SQLite, który uzyskał 0.69 ms. FMDB uzyskał blisko dwukrotnie wyższy czas wynoszący 1.23 ms. Realm zaś ukończył operacje z~czasem gorszym o~0.16 ms od FMDB równym 1.39 ms. Najwolniejsza okazała się Core Data, wykonała ona operacje po upływie 5.44 ms. 
+Wyniki testów usunięcia wszystkich autorów, którzy wydali 3 książki w~przypadku użycia małego zestawu danych widoczne są na wykresie \ref{img: delete-by-author-small}.  Najniższy czas wynoszący 0.29 ms uzyskała Domyślna Baza Użytkownika. Drugi co do wielkości czas należy do SQLite, który uzyskał 0.69 ms. FMDB uzyskał blisko dwukrotnie wyższy czas wynoszący 1.23 ms. Realm zaś ukończył operacje z~czasem gorszym o~0.16 ms od FMDB równym 1.39 ms. Najwolniejsza okazała się Core Data, wykonała ona operacje po upływie 5.44 ms. 
 
-Wyniki testów z~użyciem średniego zestawu danych widoczne są na wykresie \ref{img: delete-by-author-medium}. Najniższy czas równy 1.67 ms ponownie uzyskała Domyślna Baza Użytkownika. Wolniejszy o~0.06 ms okazał się Realm kończąc zadanie w~czasie 1.73 ms. SQLite zakończył operacje w~czasie 5.40 ms. FMDB zakończyło zadanie w~czasie 6.13 ms. Najwolniejsza ponownie była Core Data, uzyskując czas 15.64 ms.
+Wyniki testów z~użyciem średniego zestawu danych widoczne są na wykresie \ref{img: delete-by-author-medium}. Najniższy czas równy 1.67 ms ponownie uzyskała Domyślna Baza Użytkownika. Wolniejszy o~0.06 ms okazał się Realm, kończąc zadanie w~czasie 1.73 ms. SQLite zakończył operacje w~czasie 5.40 ms. FMDB zakończyło zadanie w~czasie 6.13 ms. Najwolniejsza ponownie była Core Data, uzyskując czas 15.64 ms.
 
 Rezultaty testów z~wykorzystaniem dużego zestawu danych widoczne są na wykresie \ref{img: delete-by-author-big}. Najszybszy okazał się Realm uzyskując czas 5.43 ms. Drugi co do wielkości rezultat wynoszący 14.87 ms należy do Domyślnej Bazy Użytkownika. SQlite ukończył wykonywanie zadanie w~82.09 ms. FMDB okazał się wolniejszy od SQLite o~5.48 ms i~wykonał operacje w~87.57 ms. Ponownie najwolniejsza okazała się Core Data, uzyskując czas 95.38 ms.
 
-Przedstawiony test wymagał zliczenia wszystkich książek dla każdego z~autorów, a~następnie wybraniu tych, którzy wydali trzy książki i~usunięciu ich z~bazy. Wyniki pokazują, że przy małej i~średniej ilości danych w~tego typu operacjach dobrze spisuję się Domyślna Baza Użytkownika, która radzi sobie gorzej w~przypadku dużej ilości danych. Realm w~przypadku małej i~średniej ilości danych wykonuję zadanie w~podobnym czasie różnica wynosi jedynie 0.34 ms, zaś ta baza danych prezentuje doskonały rezultat w~przypadku dużej ilości danych i~jest najszybsza z~testowanych baz. SQLite i~FMDB nie pokazują zaskakującej wydajności w~tego typu operacjach. FMDB przy użyciu różnych zestawów danych zawsze wypada gorzej od SQLite. Core Data okazała się najwolniejszym rozwiązaniem.
+Przedstawiony test wymagał zliczenia wszystkich książek dla każdego z~autorów, a~następnie wybraniu tych, którzy wydali trzy książki i~usunięciu ich z~bazy. Wyniki pokazują, że przy małej i~średniej ilości danych w~tego typu operacjach, dobrze spisuję się Domyślna Baza Użytkownika, która radzi sobie gorzej w~przypadku dużej ilości danych. Realm w~przypadku małej i~średniej ilości danych wykonuje zadanie w~podobnym czasie, różnica wynosi jedynie 0.34 ms, zaś ta baza danych prezentuje doskonały rezultat w~przypadku dużej ilości danych i~jest najszybsza z~testowanych baz. SQLite i~FMDB nie pokazują zaskakującej wydajności w~tego typu operacjach. FMDB przy użyciu różnych zestawów danych zawsze wypada gorzej od SQLite. Core Data okazała się najwolniejszym rozwiązaniem.
 
 \subsubsection{Usunięcie wydawnictw które wydały książki o~tytułach ,,Annie Oakley'' lub ,,Tokyo Zombie (Tky zonbi)''}
 
 \begin{figure}[H]
     \centering\includegraphics[width=\linewidth]{img/delete_data/delete_by_publisher/delete_by_publisher_small_test.png}
-    \caption{Usunięcie wydawnictw które wydały książki o~tytułach ,,Annie Oakley'' lub ,,Tokyo Zombie (Tky zonbi)'' - mały zestaw danych}
+    \caption{Usunięcie wydawnictw, które wydały książki o~tytułach ,,Annie Oakley'' lub ,,Tokyo Zombie (Tky zonbi)'' - mały zestaw danych}
     \label{img: delete-by-publisher-small}
 \end{figure}
 
 \begin{figure}[H]
     \centering\includegraphics[width=\linewidth]{img/delete_data/delete_by_publisher/delete_by_publisher_medium_test.png}
-    \caption{Usunięcie wydawnictw które wydały książki o~tytułach ,,Annie Oakley'' lub ,,Tokyo Zombie (Tky zonbi)'' - średni zestaw danych}
+    \caption{Usunięcie wydawnictw, które wydały książki o~tytułach ,,Annie Oakley'' lub ,,Tokyo Zombie (Tky zonbi)'' - średni zestaw danych}
     \label{img: delete-by-publisher-medium}
 \end{figure}
 
 \begin{figure}[H]
     \centering\includegraphics[width=\linewidth]{img/delete_data/delete_by_publisher/delete_by_publisher_big_test.png}
-    \caption{Usunięcie wydawnictw które wydały książki o~tytułach ,,Annie Oakley'' lub ,,Tokyo Zombie (Tky zonbi)'' - duży zestaw danych}
+    \caption{Usunięcie wydawnictw, które wydały książki o~tytułach ,,Annie Oakley'' lub ,,Tokyo Zombie (Tky zonbi)'' - duży zestaw danych}
     \label{img: delete-by-publisher-big}
 \end{figure}
 
 Rezultaty testu usunięcia wydawnictw, które wydały książki o~tytułach ,,Annie Oakley'' lub ,,Tokyo Zombie (Tky zonbi)'' z~użyciem małego zestawu danych widoczne na wykresie \ref{img: delete-by-publisher-small} pokazują, że najszybszy w~tym przypadku okazał się SQLite. Uzyskał on czas równy 0.27 ms. Wolniej wykonała operacje Domyślna Baza Użytkownika kończąc zadanie w~ciągu 0.31 ms. Trzeci rezultat uzyskał Realm wykonując operacje w~1.39 ms. FMDB ukończył zadanie w~4.34 ms, zaś Core Data okazała się najwolniejsza czas zakończenia operacji, w~jej wykonaniu wyniósł 4.79 ms. 
 
- W~przypadku średniego zestawu danych ponownie najszybszy jest SQLite z~czasem 1.29 ms. Ponownie nieznacznie wolniejsza w~stosunku do SQLite okazała się Domyślna Baza Użytkownika, wykonując operacje w~1.90 ms. Realm przedstawia znaczny spadek wydajności względem poprzedników, kończąc zadanie po upływie 15.50 ms co jest o~13.9 ms wolniej niż Domyślna Baza Użytkownika. FMDB i~Core Data ponowni okazały się najmniej wydajne. Czas wykonania testu dla FMDB wynosi 18.83 ms zaś dla Core Data równy jest on 29.27 ms.
+ W~przypadku średniego zestawu danych ponownie najszybszy jest SQLite z~czasem 1.29 ms. Ponownie nieznacznie wolniejsza w~stosunku do SQLite okazała się Domyślna Baza Użytkownika, wykonując operacje w~1.90 ms. Realm przedstawia znaczny spadek wydajności względem poprzedników, kończąc zadanie po upływie 15.50 ms, co jest o~13.9 ms wolniej niż Domyślna Baza Użytkownika. FMDB i~Core Data ponownie okazały się najmniej wydajne. Czas wykonania testu dla FMDB wynosi 18.83 ms zaś dla Core Data równy jest on 29.27 ms.
 
 Podczas wykorzystania dużego zestawu danych kolejność uzyskanych czasów przez bazy nie uległa zmianie. Ponownie najszybszy jest SQLite, czas wyniósł 6.63 ms. Znacznie wolniej operacje wykonała Domyślna Baza Użytkownika, zadanie wykonane zostało po upływie 24.92 ms. Realm zakończył operacje w~50.86 ms. FMDB zakończył usuwanie wybranych wydawnictwa w~czasie 94.44 ms. Core Data prezentuje znacznie wolniejsze działanie w~tego typu zapytaniach, uzyskała największy czas równy 174.6 ms. 
 
-Test pokazuję, że w~przypadku operacji wymagającej pracy z~relacjami pomiędzy danymi najszybszym rozwiązaniem jest SQLite. Domyślna Baza Użytkownika ponownie prezentuje duży spadek wydajności wraz ze wzrostem ilości danych. Realm i~FMDB prezentują zbliżone wyniki, lecz kiedy operacje wykonywane są na dużej ilości danych zdecydowaną przewagę posiada Realm. Core Data niezależnie od ilości danych posiada najmniejszą wydajność spośród testowanych baz danych niezależnie od ilości danych.
+Test pokazuję, że w~przypadku operacji wymagającej pracy z~relacjami pomiędzy danymi, najszybszym rozwiązaniem jest SQLite. Domyślna Baza Użytkownika ponownie prezentuje duży spadek wydajności wraz ze wzrostem ilości danych. Realm i~FMDB prezentują zbliżone wyniki, lecz kiedy operacje wykonywane są na dużej ilości danych, zdecydowaną przewagę posiada Realm. Core Data, niezależnie od ilości danych, posiada najmniejszą wydajność spośród testowanych baz danych, niezależnie od ilości danych.
 
 \subsection{Testy edycji danych}
 
@@ -618,13 +618,13 @@ Pierwszy z~testów przedstawia operacje przeprowadzoną na wybranych rekordach z
     \label{img: update-by-author-big}
 \end{figure}
 
-Test zmiany imienia autora ,,Diena'' na ,,Alona'' z~użyciem małego zestawu danych najszybciej wykonał SQLite uzyskując czas 0.20 ms. Wraper FMDB zakończył to zadanie w~czasie 0.67 ms. Realm test zakończył po upływie 1.44 ms. Core Data pokazała niższa wydajność i~skończyła zadanie w~czasie 2.13 ms. Najwolniejsza okazała się Domyślna Baza Użytkownika, kończąc operacje w~czasie 2.31 ms. 
+Test zmiany imienia autora ,,Diena'' na ,,Alona'' z~użyciem małego zestawu danych najszybciej wykonał SQLite, uzyskując czas 0.20 ms. Wraper FMDB zakończył to zadanie w~czasie 0.67 ms. Realm test zakończył po upływie 1.44 ms. Core Data pokazała niższa wydajność i~skończyła zadanie w~czasie 2.13 ms. Najwolniejsza okazała się Domyślna Baza Użytkownika, kończąc operacje w~czasie 2.31 ms. 
 
 Zastosowanie średniego zestawu danych przyniosło następujące rezultaty. SQLite wykonał operacje w~czasie 0.45 ms. FMDB okazał się wolniejszy o~0.55 ms i~uzyskał czas 1 ms. Dla bazy Realm test zajął 1.47 ms. Core Data zakończyła zadanie w~czasie 2.73 ms. Ponownie najmniej wydajna jest Domyślna Baza Użytkownika, kończąc test w~3.43 ms.
 
-Użycie dużego zestawu danych pokazuje, że SQLite w~dalszym ciągu jest bardzo wydajny, czas ukończenia operacji w~tym przypadku wyniósł 0.74 ms. Znacznie wolniejszy jest FMDB, zakończył test w~2.33 ms. Realm przy zwiększonej ilości danych uzyskał czas 2.66 ms zaś Core Data potrzebowała 3.83 ms na edycje danych. Domyślna Baza Użytkownika po raz kolejny była najmniej wydajna, potrzebowała aż 4.36 ms aby wykonać test. 
+Użycie dużego zestawu danych pokazuje, że SQLite w~dalszym ciągu jest bardzo wydajny, czas ukończenia operacji w~tym przypadku wyniósł 0.74 ms. Znacznie wolniejszy jest FMDB, zakończył test w~2.33 ms. Realm przy zwiększonej ilości danych uzyskał czas 2.66 ms, zaś Core Data potrzebowała 3.83 ms na edycje danych. Domyślna Baza Użytkownika po raz kolejny była najmniej wydajna, potrzebowała aż 4.36 ms, aby wykonać test. 
 
-Test pokazuję, że wybranie odpowiednich rekordów i~ich edycja jest mocną stroną baz SQL, SQLite i~FMDB pokazują największą wydajność w~wykonanym teście niezależnie od ilości danych. Pozostałe bazy danych poddane testowi zwiększają swoje czasy wraz ze wzrostem ilości danych. Najmniej wydajną bazą w~przypadku przedstawionego testu jest Domyślna Baza Użytkownika. 
+Test pokazuje, że wybranie odpowiednich rekordów i~ich edycja jest mocną stroną baz SQL, SQLite i~FMDB pokazują największą wydajność w~wykonanym teście niezależnie od ilości danych. Pozostałe bazy danych poddane testowi zwiększają swoje czasy wraz ze wzrostem ilości danych. Najmniej wydajną bazą w~przypadku przedstawionego testu jest Domyślna Baza Użytkownika. 
 
 \subsubsection{Zmiana daty wydania książek na obecna datę}
 
@@ -646,14 +646,14 @@ Test pokazuję, że wybranie odpowiednich rekordów i~ich edycja jest mocną str
     \label{img: update-by-book-big}
 \end{figure}
 
-Test zmiany daty wydania książek na obecna datę operował na wszystkich rekordach w~tabeli Książka. Rezultaty w~przypadku małego zestawu danych prezentują się następująco. Realm zakończył test w~czasie 0.74 ms. FMDB i~SQLite ukończyły operacje kolejno w~czasach 3.22 i~3.33 ms. Core Data okazała się znacznie wolniejsza od poprzedników i~potrzebowała 7.50 ms aby zakończyć zadanie. Najwolniejsza jest Domyślna Baza Użytkownika, uzyskując czas wykonania operacji równy 10.15 ms. 
+Test zmiany daty wydania książek na obecna datę operował na wszystkich rekordach w~tabeli Książka. Rezultaty w~przypadku małego zestawu danych prezentują się następująco. Realm zakończył test w~czasie 0.74 ms. FMDB i~SQLite ukończyły operacje kolejno w~czasach 3.22 i~3.33 ms. Core Data okazała się znacznie wolniejsza od poprzedników i~potrzebowała 7.50 ms, aby zakończyć zadanie. Najwolniejsza jest Domyślna Baza Użytkownika, uzyskując czas wykonania operacji równy 10.15 ms. 
 
 Średni zestaw danych w~przedstawianym teście przedstawia bardzo wysoką wydajność bazy Realm, zakończył on operacje w~2.49 ms. SQLite na wykonanie testu potrzebował 8.49 ms. FMDB zakończył zadanie w~czasie 17.58 ms. Znacznie wolniejsza od poprzednich baz jest Domyślna Baza Użytkownika, zakończyła test w~40.43 ms. Najwolniejsza jest Core Data, potrzebowała aż 172.88  ms na uaktualnienie dat wydania książek.
 
-Użycie dużego zestawu danych pokazało, że w~dalszym ciągu Realm jest w~podanym teście najszybszy, czas zakończenia operacji wyniósł 8.57 ms. Dużo wolniejszy jest FMDB potrzebował aż 75.59 ms. SQLite także potrzebował dużo czasu na zakończenie testu, operacja wymagała 136.73 ms. Domyślna Baza Użytkownika operacje zakończyła po upływie 306.18 ms. Core Data na wykonanie testu potrzebowała 490,68 ms. 
+Użycie dużego zestawu danych pokazało, że w~dalszym ciągu Realm jest w~podanym teście najszybszy, czas zakończenia operacji wyniósł 8.57 ms. Dużo wolniejszy jest FMDB, potrzebował aż 75.59 ms. SQLite także potrzebował dużo czasu na zakończenie testu, operacja wymagała 136.73 ms. Domyślna Baza Użytkownika operacje zakończyła po upływie 306.18 ms. Core Data na wykonanie testu potrzebowała 490,68 ms. 
 
 Podczas edycji każdego z~rekordów tabeli najwydajniejszą bazą okazał się Realm. Wolniejsze od dokumentowej bazy danych okazały się bazy SQL, edycja danych zajęła im więcej czasu. Najmniej wydajna jest Domyślna Baza Użytkownika oraz Core Data, której wydajność jest bardzo słaba w~przedstawionej operacji. 
 
 \subsection{Podsumowanie wszystkich wyników}
 
-Przeprowadzone testy dowodzą, że pod względem zużycia zasobów urządzenia, czyli pamięci operacyjnej i procesora bez względu na ilość danych, najlepsze okazują się bazy SQLite oraz FMDB. Stosunkowo najmniejszy plik wynikowy posiada Domyślna Baza Użytkownika i Realm. W sytuacji, kiedy potrzebna jest duża wydajność bazy danych podczas zapisu doskonałym rozwiązaniem okazuję się ponownie Realm i Domyślna Baza Użytkownika, niezależnie od ilości danych. Realm pokazuję wysoką wydajność podczas wykonywania operacji na średnich i dużych ilościach danych, lecz jego wydajność spada wraz ze wzrostem stopnia skomplikowania operacji. Bazy FMDB i SQLite są zaś wydajne przy skomplikowanych operacjach bazodanowych wykonywanych na większych ilościach danych. Core Data uzyskuję najlepsze wyniki podczas pracy nad średnią ilością danych. Domyślna Baza Użytkownika przystosowana jest do małej ilości danych oraz do wykonywania nieskomplikowanych zadań.
+Przeprowadzone testy dowodzą, że pod względem zużycia zasobów urządzenia, czyli pamięci operacyjnej i procesora bez względu na ilość danych, najlepsze okazują się bazy SQLite oraz FMDB. Stosunkowo najmniejszy plik wynikowy posiada Domyślna Baza Użytkownika i Realm. W sytuacji, kiedy potrzebna jest duża wydajność bazy danych podczas zapisu doskonałym rozwiązaniem okazuję się ponownie Realm i Domyślna Baza Użytkownika, niezależnie od ilości danych. Realm pokazuje wysoką wydajność podczas wykonywania operacji na średnich i dużych ilościach danych, lecz jego wydajność spada wraz ze wzrostem stopnia skomplikowania operacji. Bazy FMDB i SQLite są zaś wydajne przy skomplikowanych operacjach bazodanowych wykonywanych na większych ilościach danych. Core Data uzyskuje najlepsze wyniki podczas pracy nad średnią ilością danych. Domyślna Baza Użytkownika przystosowana jest do małej ilości danych oraz do wykonywania nieskomplikowanych zadań.

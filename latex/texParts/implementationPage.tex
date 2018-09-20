@@ -11,13 +11,15 @@ Bazy SQL przedstawione w~pracy używają standardowych poleceń SQL do stworzeni
 		language=swift,
 		caption={Polecenia tworzenia tabel w~SQLite i~FMDB},
 		label={lis:create_SQL_table_code},
+		escapechar=|
 	]
     let createBookTableString = "CREATE TABLE IF NOT EXISTS Book (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, isbn TEXT, publishDate TEXT, publisher_id INTEGER, FOREIGN KEY(publisher_id) REFERENCES Publisher(id))"
     let createAuthorTableString = "CREATE TABLE IF NOT EXISTS Publisher (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT)"
     let createPublisherTableString = "CREATE TABLE IF NOT EXISTS Publisher (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT)"
 \end{code}
 
- W~przypadku dokumentowej bazy Realm kolekcje tworzone są na podstawie obiektów dziedziczących z~klasy \textit{Object} biblioteki Realm. Kod źródłowy \ref{lis:realm_object_code} pokazuje przykład klasy.
+\bigskip
+W~przypadku dokumentowej bazy Realm kolekcje tworzone są na podstawie obiektów dziedziczących z~klasy \textit{Object} biblioteki Realm. Kod źródłowy \ref{lis:realm_object_code} pokazuje przykład klasy.
 
 \begin{code}[
 		language=swift,
@@ -36,10 +38,11 @@ class RAuthor: Object {
     }
 }
 \end{code}
+\bigskip
 
  W~liniach 3-5 przedstawione są zmienne przechowujące dane obiektu, linia 6 pokazuje listę obiektów \textit{RBook}. Lista ta jest odwzorowaniem relacji pomiędzy tablicami. Metoda \textit{primaryKey()} znajdująca się w~linii numer 10 oznacza pole odpowiadające za klucz główny danej klasy. 
 
-Domyślna Baza Użytkownika jak wspomniane zostało w~rozdziale 2.5, do konwersji obiektów wymaga rozszerzenia obiektów o~protokół \textit{NSCoding}. Przykład kodu klasy Domyślnej Bazy Użytkownika reprezentuje kod źródłowy \ref{lis:ud_object_code}. Tak jak w~przypadku Realm linie 2-4 reprezentują pola przechowujące dane za w~linii 5 przedstawiona jest lista identyfikatorów książek wydanych przez danego autora. Lista ta reprezentuje relacje pomiędzy obiektami. Metoda \textit{encode(with aCoder: NSCoder)} potrzebna jest do poprawnego zapisu obiektu w~pamięci zaś funkcja \textit{convenience init(coder aDecoder: NSCoder)} odpowiada za odczyt obiektu.
+Domyślna Baza Użytkownika, jak wspomniane zostało w~rozdziale 2.5, do konwersji obiektów wymaga rozszerzenia obiektów o~protokół \textit{NSCoding}. Przykład kodu klasy Domyślnej Bazy Użytkownika reprezentuje kod źródłowy \ref{lis:ud_object_code}. Tak jak w~przypadku Realm linie 2-4 reprezentują pola przechowujące dane za w~linii 5 przedstawiona jest lista identyfikatorów książek wydanych przez danego autora. Lista ta reprezentuje relacje pomiędzy obiektami. Metoda \textit{encode(with aCoder: NSCoder)} potrzebna jest do poprawnego zapisu obiektu w~pamięci zaś funkcja \textit{convenience init(coder aDecoder: NSCoder)} odpowiada za odczyt obiektu.
 
 \begin{code}[
 		language=swift,
@@ -77,8 +80,9 @@ class UDAuthor: NSObject, NSCoding {
 }
 
 \end{code}
+\bigskip
 
-Można zauważyć znaczące różnice w~tworzeniu struktury danych w~każdej z~przedstawionych baz. Core Data dzięki dobremu wsparciu ze strony XCode może wydawać się prosta w~zaimplementowaniu, lecz wymaga dobrej znajomosci całego framework-a. W~celu szybszej implementacji klas reprezentujących tabele trzeba skorzystać z~oddzielnych narzędzi co może przysporzyć dodatkowych problemów w~dalszych procesach utrzymywania oprogramowania. SQLite i~FMDB wymagają dobrej znajomości języka SQL, ale dobrze napisane polecenia są w~stanie posłużyć przez wiele lat, gdyż język SQL jest jednym z~najstabilniejszych i~najpopularniejszych rozwiązań bazodanowych. Realm wymaga stosunkowo małej ilości kodu i~umiejętności, aby stworzyć strukturę bazy. Klasy są bardzo przejrzyste i~zbliżone do zwykłych klas obiektów w~języku Swift. Domyślna Baza Użytkownika poza standardową deklaracją pól i~konstruktorów wymaga jeszcze zaimplementowania metod protokołu \textit{NSCoding}. Dodatkowo wymagane jest dodanie odpowiednich kluczy dla każdego z~pól obiektu. Ilość kodu i~kluczy uzależniona jest tutaj od ilości pól obiektu. Przy wielu tabelach może to stanowić znaczące problemy w~implementacji oraz utrzymaniu kodu. 
+Można zauważyć znaczące różnice w~tworzeniu struktury danych w~każdej z~przedstawionych baz. Core Data dzięki dobremu wsparciu ze strony XCode może wydawać się prosta w~zaimplementowaniu, lecz wymaga dobrej znajomosci całego framework-a. W~celu szybszej implementacji klas reprezentujących tabele, trzeba skorzystać z~oddzielnych narzędzi, co może przysporzyć dodatkowych problemów w~dalszych procesach utrzymywania oprogramowania. SQLite i~FMDB wymagają dobrej znajomości języka SQL, ale dobrze napisane polecenia są w~stanie posłużyć przez wiele lat, gdyż język SQL jest jednym z~najstabilniejszych i~najpopularniejszych rozwiązań bazodanowych. Realm wymaga stosunkowo małej ilości kodu i~umiejętności, aby stworzyć strukturę bazy. Klasy są bardzo przejrzyste i~zbliżone do zwykłych klas obiektów w~języku Swift. Domyślna Baza Użytkownika poza standardową deklaracją pól i~konstruktorów wymaga jeszcze zaimplementowania metod protokołu \textit{NSCoding}. Dodatkowo wymagane jest dodanie odpowiednich kluczy dla każdego z~pól obiektu. Ilość kodu i~kluczy uzależniona jest tutaj od ilości pól obiektu. Przy wielu tabelach może to stanowić znaczące problemy w~implementacji oraz utrzymaniu kodu. 
 
 \subsection{Zapis danych}
 
@@ -103,10 +107,11 @@ Zapis danych w~przypadku Core Data przedstawiony jest w~przykładzie \ref{lis:co
         stack.saveContext()
     }
 \end{code}
+\bigskip
 
-Dla każdego obiektu z~listy tworzony jest obiekt \textit{CDWydawnictwo} będący reprezentacją rekordu w~tabeli wydawnictwo. W~linii za pomocą funkcji \textit{fill} uzupełniane są pola obiektu. Następnie dla każdej książki wydanej przez wydawnictwo w~pętli pokazanej w~linii 8 odczytywany jest obiekt \textit{CDKsiazka} wcześniej już zapisany w~bazie. Po odczytaniu obiektu następuje ustawienie relacji książka - wydawnictwo co reprezentują linie 10 i~11 w~przedstawionym przykładzie. Po wykonaniu opisanych operacji w~linii numer 15 następuje zapis stanu bazy Core Data. 
+Dla każdego obiektu z~listy tworzony jest obiekt \textit{CDWydawnictwo} będący reprezentacją rekordu w~tabeli wydawnictwo. W~linii za pomocą funkcji \textit{fill} uzupełniane są pola obiektu. Następnie dla każdej książki wydanej przez wydawnictwo w~pętli pokazanej w~linii 8 odczytywany jest obiekt \textit{CDKsiazka} wcześniej już zapisany w~bazie. Po odczytaniu obiektu następuje ustawienie relacji książka - wydawnictwo, co reprezentują linie 10 i~11 w~przedstawionym przykładzie. Po wykonaniu opisanych operacji w~linii numer 15 następuje zapis stanu bazy Core Data. 
 
-Podczas użycia baz SQLIte i~FMDB aby zapisać obiekt do bazy należy w~pierwszej kolejności zdefiniować odpowiednie zapytania. Aby poprawnie wprowadzać dane, do przedstawionej w~pracy bazie testowej zostały użyte zapytania SQL widoczne w~przykładzie \ref{lis:insert_sql_query}. 
+Podczas użycia baz SQLIte i~FMDB, aby zapisać obiekt do bazy, należy w~pierwszej kolejności zdefiniować odpowiednie zapytania. Aby poprawnie wprowadzać dane do przedstawionej w~pracy bazie testowej, zostały użyte zapytania SQL widoczne w~przykładzie \ref{lis:insert_sql_query}. 
 
 \begin{code}[
 		language=swift,
@@ -118,8 +123,9 @@ Podczas użycia baz SQLIte i~FMDB aby zapisać obiekt do bazy należy w~pierwsze
     private let insertPublisherDataQueryString = "INSERT INTO Publisher (name) VALUES (?)"
     private let insertAuthorsBooksDataQueryString = "INSERT INTO authors_books (book_id, author_id) VALUES (?, ?)"
 \end{code}
+\bigskip
 
-Kolejnym krokiem jest odpowiednie użycie przedstawionych powyżej zapytań oraz przypisanie odpowiednich pól obiektu do zapytania. Czynności te dla bazy SQLite zostały pokazane we fragmencie kodu \ref{lis:sqlite_save_code}. Przykład pokazuję zapis obiektu \textit{Książka}. Aby zapisać obiekt, niezbędna jest zmienna typu \textit{OpaquePointer} reprezentująca obiekt zapytania do bazy danych. Za pomocą funkcji widocznej w~4 linii \textit{sqlite3\_prepare\_v2} zapytanie z~formy ciągu znaków konwertowane jest na obiekt. Następnie w~liniach 8-11 za pomocą funkcji \textit{sqlite3\_bind\_text} pola obiektu \textit{Książka} przypisywane są do zapytania. W~linii 13 przy użyciu \textit{sqlite3\_step} następuje wykonanie zapytania i~zapis obiektu do tablicy. Funkcja \textit{sqlite3\_reset} czyści przypisane w~zapytaniu zmienne i~umożliwia ponowne załadowane nowych danych do zapytania. W~linii 20 przykładu następuje zapis stanu bazy danych przy użyciu \textit{sqlite3\_finalize}.
+Kolejnym krokiem jest odpowiednie użycie przedstawionych powyżej zapytań oraz przypisanie odpowiednich pól obiektu do zapytania. Czynności te dla bazy SQLite zostały pokazane we fragmencie kodu \ref{lis:sqlite_save_code}. Przykład pokazuję zapis obiektu \textit{Książka}. Aby zapisać obiekt, niezbędna jest zmienna typu \textit{OpaquePointer} reprezentująca obiekt zapytania do bazy danych. Za pomocą funkcji widocznej w~4 linii \textit{sqlite3\_prepare\_v2} zapytanie z~formy ciągu znaków konwertowane jest na obiekt. Następnie w~liniach 8-11 za pomocą funkcji \textit{sqlite3\_bind\_text} pola obiektu \textit{Książka} przypisywane są do zapytania. W~linii 13 przy użyciu \textit{sqlite3\_step} następuje wykonanie zapytania i~zapis obiektu do tablicy. Funkcja \textit{sqlite3\_reset} czyści przypisane w~zapytaniu zmienne i~umożliwia ponowne załadowanie nowych danych do zapytania. W~linii 20 przykładu następuje zapis stanu bazy danych przy użyciu \textit{sqlite3\_finalize}.
 
 \begin{code}[
 		language=swift,
@@ -148,6 +154,7 @@ Kolejnym krokiem jest odpowiednie użycie przedstawionych powyżej zapytań oraz
         sqlite3_finalize(insertDataStatement)
     }
 \end{code}
+\bigskip
 
 Przy użyciu biblioteki FMDB użycie SQLite jest znacznie łatwiejsze. Bliźniacza metoda do zapisu obiektów \textit{Książka} została przedstawiona w~przykładzie \ref{lis:fmdb_save_code}. Proces zapisu obiektu jest znacząco ułatwiony. W~linii 2 poprzez funkcje \textit{open()} otwierane jest połączenie z~bazą danych. Następnie w~pętli wykonywana jest operacja \textit{executeUpdate}, która przyjmuje jako parametr zapytanie do bazy i~listę pól obiektu. Po zapisaniu wszystkich obiektów do bazy w~linii numer 15 wywoływana jest funkcja \textit{close} służąca do zamknięcia połączenia z~bazą danych. 
 
@@ -173,8 +180,9 @@ Przy użyciu biblioteki FMDB użycie SQLite jest znacznie łatwiejsze. Bliźniac
         database.close()
     }
 \end{code}
+\bigskip
 
-Jedną z~najprostszych implementacji zapisu danych posiada Domyślna Baza Użytkownika. Kod wykonujący to samo zadanie co przytoczone wcześniej przykłady reprezentuje fragment kodu \ref{lis:ud_save_code}. Dzięki implementacji protokołu \textit{NSCoding} możliwe jest szybkie kodowanie i~dekodowanie obiektów. W~celu uzyskania formatu danych pozwalającego na zapis w~Domyślnej bazie użytkownika użyta została metoda \textit{NSKeyedArchiver.archivedData} przekształcająca listę obiektów na typ \textit{Data} a~następnie dane zostały zapisane za pomocą funkcji \textit{userDefaults.set} a~w ostatniej linii za pomocą metody \textit{synchronize} zapisany został stan bazy. 
+Jedną z~najprostszych implementacji zapisu danych posiada Domyślna Baza Użytkownika. Kod wykonujący to samo zadanie co przytoczone wcześniej przykłady reprezentuje fragment kodu \ref{lis:ud_save_code}. Dzięki implementacji protokołu \textit{NSCoding} możliwe jest szybkie kodowanie i~dekodowanie obiektów. W~celu uzyskania formatu danych pozwalającego na zapis w~Domyślnej bazie użytkownika użyta została metoda \textit{NSKeyedArchiver.archivedData} przekształcająca listę obiektów na typ \textit{Data}, a~następnie dane zostały zapisane za pomocą funkcji \textit{userDefaults.set}, a~w ostatniej linii za pomocą metody \textit{synchronize} zapisany został stan bazy. 
 
 \begin{code}[
 		language=swift,
@@ -187,6 +195,7 @@ Jedną z~najprostszych implementacji zapisu danych posiada Domyślna Baza Użytk
         userDefaults.synchronize()
     }
 \end{code}
+\bigskip
 
 Biblioteka Realm także posiada prosty interfejs zapisu danych. Metoda wykonująca to zadanie przedstawiona została poniżej w~przykładzie \ref{lis:realm_save_code}. Cała operacja sprowadza się do stworzenia bloku zapisu \textit{write} i~wywołaniu metody \textit{add} z~listą obiektów przeznaczoną do zapisu. 
 
@@ -201,6 +210,7 @@ Biblioteka Realm także posiada prosty interfejs zapisu danych. Metoda wykonują
         }
     }
 \end{code}
+\bigskip
 
 Można zauważyć, że najmniej wymagający interfejs do zapisu danych posiada biblioteka Realm. Składa się on praktycznie z~dwóch metod. Bardzo prosty zapis danych posiada także Domyślna Baza Użytkownika lecz w~jej przypadku należy dodatkowo w~każdym obiekcie implementować protokół \textit{NSCoding}. Jedną z~bardziej wymagających bibliotek jest Core Data. Zapis danych wymaga tutaj większej ilości kodu, a~także konwersji zapisywanego obiektu do obiektu reprezentującego tablice bazy. Należy też zadbać o~zapisywanie kontekstu bazy w~odpowiednich momentach. Najbardziej wymagające są bazy SQL. SQLite i~FMDB wymagają sformułowania odpowiednich zapytań SQL, dodatkowo w~przypadku SQLite implementacja wymaga pojedynczego przypisywania pól obiektu do stworzonego zapytania. Problem ten znika przy użyciu FMDB, lecz w~większości przypadków to rozwiązanie pomimo ułatwień w~implementacji okazuję się działać znacznie wolniej od SQLite. 
 
@@ -225,6 +235,7 @@ Wybrany przykład funkcja dla Core Data został przedstawiony poniżej w~kodzie 
         guard let result = stack.executeFetchRequest(request: request, inContext: stack.managedObjectContext) else { return }
     }
 \end{code}
+\bigskip
 
 Inny sposób przeszukiwania danych oferuje Domyślna Baza Użytkownika. Funkcja wykonująca te samo zadanie została przedstawiona w~przykładzie \ref{lis:ud_read_code}.
 
@@ -243,7 +254,7 @@ Inny sposób przeszukiwania danych oferuje Domyślna Baza Użytkownika. Funkcja 
         }
     }
 \end{code}
-
+\bigskip
 
  W~5 linii za pomocą zdefiniowanego klucza dla tabeli odczytywane są wszystkie dane dla tablicy Autor. Następnie w~linii numer 6 następuje konwersja surowego typu danych na obiekty. Kolejnym krokiem jest przeszukanie listy i~wybranie autorów o~podanym imieniu. 
 
@@ -256,6 +267,7 @@ Bazy SQL do odczytania danych wymagały zdefiniowana zapytania widocznego poniż
 	]
 let selectAuthorByNameQueryString = "SELECT id, firstName, lastName FROM Author a~WHERE a.firstName = ?"
 \end{code}
+\bigskip
 
  W~przypadku użycia SQLite odczyt danych przeprowadzony był poprzez poprzez funkcje widoczna w~fragmencie kodu \ref{lis:sqlite_read_code}
 
@@ -286,6 +298,7 @@ let selectAuthorByNameQueryString = "SELECT id, firstName, lastName FROM Author 
         }
     }
 \end{code}
+\bigskip
 
 Ponownie w~przypadku SQLite wcześniej zdefiniowane zapytanie zostaje przypisane do obiektu typu \textit{OpaquePointer} za pomocą funkcji \textit{sqlite3\_prepare}. Następnie w~linii 12 do zapytania zostaje przypisany parametr oznaczony za pomocą "?" w~zapytaniu. W~linii numer 14 za pomocą funkcji \textit{sqlite3\_step} w~pętli odczytywane są kolejne rekordy będące wynikiem zapytania. Każde z~pól obiektu musi zostać odczytane i~sformatowane na odpowiedni typ. 
 
@@ -322,6 +335,7 @@ func getAuthorsByName() {
         database.close()
     }
 \end{code}
+\bigskip
 
 FMDB po otworzeniu połączenia z~bazą umożliwia wykonanie zapytania za pomocą funkcji \textit{executeQuery} i~podaniu argumentów zapytania jako parametry funkcji. Następnie można iterować po kolejnych rekordach będących wynikiem zapytania. Rezultaty nie wymagają ponownego parsowania na odpowiednie typy. Po zakończeniu operacji należy pamiętać o~zamknięciu połączenia z~bazą danych za pomocą funkcji \textit{close}. 
 
@@ -338,6 +352,7 @@ Jedną z~najprostszych implementacji posiada biblioteka Realm. Przykład repreze
         let result = realm.objects(RAuthor.self).filter(predicate)
     }
 \end{code}
+\bigskip
 
 Realm tak samo jak Core Data używa \textit{NSPredicate} do sformułowania zapytania odczytu danych. W~linii 4 za pomocą funkcji \textit{object()}, podając odniesienie do klasy, której rezultat chcemy otrzymać, istnieje możliwość odczytania wszystkich rekordów. Następnie za pomocą funkcji \textit{filter}, której argumentem jest wcześniej zdefiniowany predykant, następuje filtrowanie wyniku. 
 
@@ -368,6 +383,7 @@ Usuwanie danych zostanie porównane na podstawie funkcji użytej podczas testu p
         stack.saveContext()
     }
  \end{code}
+    \bigskip
     
 Kod źródłowy \ref{lis:ud_delete_code} reprezentuje usuwanie danych w~Domyślnej Bazie Użytkownika. W~przykładzie widać słabe strony tego rozwiązania bazodanowego. W~linii 4 następuje filtrowanie listy zapisanych rekordów w~taki sposób, aby wyszukać identyfikatory autorów, których należy usunąć. W~linii 5 wykonywane jest ponowne przeszukanie listy rekordów i~usunięcie wybranych danych. W~przypadku złożonych operacji podczas używania Domyślnej Bazie Użytkownika często istnieje potrzeba przeszukiwania kilkukrotnie więcej niż jednej listy. Często jest to problematyczne w~zaimplementowaniu oraz znacząco spowalnia aplikacje.
     
@@ -387,6 +403,7 @@ Kod źródłowy \ref{lis:ud_delete_code} reprezentuje usuwanie danych w~Domyśln
         }
     }
 \end{code}
+\bigskip
 
 Bazy SQL do usuwania danych wymagały zdefiniowana zapytania widocznego poniżej. Zapytanie te zostało użyte dla bazy SQLite i~FMDB.
 
@@ -397,6 +414,7 @@ Bazy SQL do usuwania danych wymagały zdefiniowana zapytania widocznego poniżej
 	]
 let deleteAuthorsByBooks = "DELETE FROM Author WHERE EXISTS (SELECT authorId FROM ( SELECT Author.id as authorId, COUNT(authors_books.book_id) as booksCount FROM Author, authors_books WHERE Author.id = authors_books.author_id GROUP BY Author.id) WHERE booksCount = 3)"
 \end{code}
+\bigskip
 
 Przykłady kodów źródłowych \ref{lis:sqlite_delete_code} (SQLite) i~\ref{lis:fmdb_delete_code} (FMDB) pokazują, że implementacja tego samego zadania nie różni się znacząco. Największą różnicę pomiędzy nimi stanowi składnia. SQLite posiada składnię pokrewną dla języka C zaś biblioteka FMDB pomimo wykorzystywania SQLite udostępnia wszystkie funkcja charakterystyczne dla języka Swift. 
 
@@ -418,6 +436,7 @@ Przykłady kodów źródłowych \ref{lis:sqlite_delete_code} (SQLite) i~\ref{lis
         sqlite3_finalize(stmtAuthors)
     }
 \end{code}
+\bigskip
 
 \begin{code}[
 		language=swift,
@@ -439,6 +458,7 @@ Przykłady kodów źródłowych \ref{lis:sqlite_delete_code} (SQLite) i~\ref{lis
         database.close()
     }
 \end{code}
+\bigskip
 
 Najmniej wymagający interfejs posługiwania się bazą danych zaprezentowany został w~przykładzie \ref{lis:realm_delete_code}. Biblioteka Realm wymaga jedynie przefiltrowania listy rekordów, a~następnie przekazanie rezultatu jako argument funkcji \textit{delete}. 
 
@@ -454,5 +474,6 @@ Najmniej wymagający interfejs posługiwania się bazą danych zaprezentowany zo
         }
     }
 \end{code}
+\bigskip
 
 Przykłady usuwania danych bardzo dobrze pokazują, w~jakim stopniu różni się sposób implementacji operacji na danych w~przypadku różnych bibliotek. Core Data posiada swój charakterystyczny sposób przeprowadzania operacji za pomocą \textit{NSFetchRequest}. Implementacja SQLite i~FMDB są do siebie zbliżone. W~przypadku SQLite implementacja może wydawać się trudniejsza ze względu na interfejs C biblioteki. Domyślna Baza Użytkownika jest doskonałym rozwiązaniem do prostych operacji. Podczas skomplikowanych operacji na danych ilość kodu i~czas poświęcony na implementacje wzrasta. Najmniej wymagającą biblioteką jest dokumentowa baza Realm. Nie wymaga ona znaczących umiejętności od programisty, a~także przeprowadzenie operacji na danych sprowadza się najczęściej do wywołania paru metod udostępnionych przez bibliotekę.
