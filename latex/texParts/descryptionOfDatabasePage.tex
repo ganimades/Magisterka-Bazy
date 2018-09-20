@@ -3,12 +3,12 @@
  W~tym rozdziale przedstawione zostały opisy wybranych baz danych dla systemu iOS: Core Data, Realm, FMDB oraz User Defaults. W~systemie iOS istnieje wiele rozwiązań umożliwiających wdrożenie bazy danych w~aplikacji, przedstawione tutaj przykłady są jednymi z~najczęściej stosowanych przez programistów bazami danych w~aplikacjach iOS.
 
 \subsection{SQLite}
-SQLite jest wewnątrz procesową biblioteką dostępną w~systemie iOS. Kod opisywanej bazy jest dostępny publicznie, można go używać w~dowolnym celu komercyjnym lub prywatnym bez żadnych opłat. Sprawia to, że baza ta jest jednym z~najczęściej wybieranych przez programistów rozwiązań do przechowywania danych w~aplikacjach. Wybór tej biblioteki jest też kierowany tym, iż projekt istnieje już od 2000 roku a~jego twórcy deklarują wsparcie aż do 2050 roku\cite{SQLite-doc}.\par
+SQLite jest wewnątrz procesową biblioteką dostępną w~systemie iOS. Kod opisywanej bazy jest dostępny publicznie, można go używać w~dowolnym celu komercyjnym lub prywatnym bez żadnych opłat. Sprawia to, że baza ta jest jednym z~najczęściej wybieranych przez programistów rozwiązań do przechowywania danych w~aplikacjach. Wybór tej biblioteki jest też kierowany tym iż projekt istnieje już od 2000 roku, a~jego twórcy deklarują wsparcie aż do 2050 roku\cite{SQLite-doc}.\par
 
-SQLite jest ,,lżejszą" wersją SQL więc korzystanie z~funkcji biblioteki zostało znacząco uproszczone. Baza ta nie posiada wydzielonych procesów serwerowych, dane zapisuje i~odczytuje ze zwykłych plików dyskowych. Kompletna baza danych programu zawierająca wszystkie tabele, relacje i~tym podobne komponenty zapewniające poprawne działanie bazy przechowywane są w~jednym pliku na dysku. Dzięki przechowywaniu wszystkich tych informacji w~jednym pliku, informacje te mogą być kopiowane w~stanie nienaruszonym pomiędzy programami.\par
+SQLite jest ,,lżejszą" wersją SQL więc korzystanie z~funkcji biblioteki zostało znacząco uproszczone. Baza ta nie posiada wydzielonych procesów serwerowych, dane zapisuje i~odczytuje ze zwykłych plików dyskowych. Kompletna baza danych programu zawierająca wszystkie tabele, relacje i~tym podobne komponenty zapewniające poprawne działanie bazy przechowywane są w~jednym pliku na dysku. Dzięki przechowywaniu wszystkich tych informacji w~jednym pliku informacje te mogą być kopiowane w~stanie nienaruszonym pomiędzy programami.\par
 
 System iOS zapewnia wbudowaną obsługę baz SQLite, nie istnieje więc potrzeba dodawania do projektu dodatkowych bibliotek. Cała komunikacja z~biblioteką jest natywna i~wymaga jedynie zaimportowania SQLite3\cite{SQLite-doc}. 
-SQLite jest bazą relacyjna i~zapewnia dodawanie relacji pomiędzy tabelami takich jak: 
+SQLite jest bazą relacyjną i~zapewnia dodawanie relacji pomiędzy tabelami takich jak: 
 
 \begin{itemize}
   \item N:M – wiele do wielu
@@ -26,17 +26,17 @@ Zapewniona została też obsługa danych takich jak:
 	\item BLOB - wartość przeznaczona do przechowywania wielkich plików w~formie bajtowej takich jak obrazy, muzyka itp. 
 \end{itemize}
 
-SQLite nie zapewnia wsparcia dla przechowywania obiektów zawierających datę. W~celu zapisania daty w~tablicy należy używać wartości tekstowych lub liczbowych a~następnie zapewnić ich odpowiednie odczytanie i~konwersje do odpowiednich obiektów języka, w~którym przebiega implementacja programu. 
+SQLite nie zapewnia wsparcia dla przechowywania obiektów zawierających datę. W~celu zapisania daty w~tablicy należy używać wartości tekstowych lub liczbowych, a~następnie zapewnić ich odpowiednie odczytanie i~konwersje do odpowiednich obiektów języka, w~którym przebiega implementacja programu. 
 
 \subsection{Core Data}
 
-Core Data jest dedykowanym rozwiązaniem Apple umożliwiającym zaimplementowanie bazy danych w~aplikacjach iOS i~MacOS. Została wprowadzona od wersji iOS 3.0 w~2009 roku. Znacznie szybciej istniała możliwość używania tej bazy danych w~MacOS,  pierwszą wersją systemu, która to umożliwiła był MacOS Tiger, który ukazał się w~2005 roku\cite{CoreData-doc}.\par
+Core Data jest dedykowanym rozwiązaniem Apple umożliwiającym zaimplementowanie bazy danych w~aplikacjach iOS i~MacOS. Została wprowadzona od wersji iOS 3.0 w~2009 roku. Znacznie szybciej istniała możliwość używania tej bazy danych w~MacOS. Pierwszą wersją systemu dającego możliwość użyawnia Core Data był MacOS Tiger, który ukazał się w~2005 roku\cite{CoreData-doc}.\par
 
-Mimo że Core Data służy do przechowywania danych sama w~sobie nie jest bazą danych a~framework'iem który zarządza diagramem obiektów aplikacji. Diagram obiektów jest to zbiór obiektów powiązanych ze sobą relacjami. Core Data zajmuje się zarządzaniem cyklem życia obiektów w~diagramie obiektów na dysku, a~także oferuje interfejs do przeszukiwania obiektów, którymi zarządza. Core Data daje także możliwość sprawdzania poprawności danych wejściowych, modelowania modeli danych czy też śledzenia zmian. \par
+Mimo że Core Data służy do przechowywania danych sama w~sobie nie jest bazą danych a~framework'iem, który zarządza diagramem obiektów aplikacji. Diagram obiektów jest to zbiór obiektów powiązanych ze sobą relacjami. Core Data zajmuje się zarządzaniem cyklem życia obiektów w~diagramie obiektów na dysku, a~także oferuje interfejs do przeszukiwania obiektów, którymi zarządza. Core Data daje także możliwość sprawdzania poprawności danych wejściowych, modelowania modeli danych czy też śledzenia zmian. \par
 
-Core Data jako rozwiązanie implementacji bazy danych korzysta z~SQLite, przechowuje za jego pomocą wszystkie obiekty na dysku. Rozszerza jednak oferowane funkcjonalności SQLite o~obsługę bazy w~kilku wątkach, tworzenia tymczasowych obiektów (kiedy nie jesteśmy pewni, czy one zostaną zapisane na dysk), automatycznie nasłuchiwanie na zmiany w~bazie danych, między innymi jeśli wyświetlamy dane użytkownika na ekranie, a~dane w~bazie danych się zmienią (za sprawą na przykład drugiego wątku pracującego z~zewnętrznym serwerem API) to dostaniemy odpowiednie powiadomienie. Core Data zapewnia łatwą integracje z~kontrolkami interfejsu użytkownika takimi jak UITableView (kontrolka odpowiedzialna za wyświetlanie tabel/list) między innymi zapewniając automatyczne tworzenie indeksów i~sekcji.\par
+Core Data jako rozwiązanie implementacji bazy danych korzysta z~SQLite, przechowuje za jego pomocą wszystkie obiekty na dysku. Rozszerza jednak oferowane funkcjonalności SQLite o~obsługę bazy w~kilku wątkach, tworzenia tymczasowych obiektów (kiedy nie jesteśmy pewni, czy one zostaną zapisane na dysk), automatycznie nasłuchiwanie na zmiany w~bazie danych między innymi, jeśli wyświetlamy dane użytkownika na ekranie, a~dane w~bazie danych się zmienią (za sprawą na przykład drugiego wątku pracującego z~zewnętrznym serwerem API), to dostaniemy odpowiednie powiadomienie. Core Data zapewnia łatwą integrację z~kontrolkami interfejsu użytkownika takimi jak UITableView (kontrolka odpowiedzialna za wyświetlanie tabel/list) między innymi zapewniając automatyczne tworzenie indeksów i~sekcji.\par
 
-Core Data jest zorganizowana w~dużą hierarchie klas, lecz używane są najczęściej podstawowe obiekty takie jak: 
+Core Data jest zorganizowana w~dużą hierarchię klas, lecz używane są najczęściej podstawowe obiekty takie jak: 
 
 \begin{itemize}
 	\item NSManagedObject - Klasa reprezentująca jeden wiersz tabeli, zapewniajacy dostęp do danych przechowywanych w~wierszu.
@@ -47,7 +47,7 @@ Core Data jest zorganizowana w~dużą hierarchie klas, lecz używane są najczę
 	\item NSPredicate - Klasa za pomocą której tworzymu zapytanie do bazy danych, używana jest jako parametr metody klasy NSFetchRequest.
 \end{itemize}
 
-Tak samo jak poprzednio opisywana baza danych Core Data pozwala na tworzenie wszystkich możliwych relacji pomiędzy tabelami. Framework zapewnia też możliwość przechowywania w~tabeli wielu typów danych takich jak: 
+Tak samo, jak poprzednio opisywana baza danych Core Data pozwala na tworzenie wszystkich możliwych relacji pomiędzy tabelami. Framework zapewnia też możliwość przechowywania w~tabeli wielu typów danych takich jak: 
 
 \begin{itemize}
 	\item String - łańcuch znaków
@@ -69,15 +69,15 @@ Jedną z~ważnych cech tej bazy danych jest możliwość graficznego definiowani
 	\label{fig: CoreDataEdytor}
 \end{figure}
 
-Dodatkowo XCode pozwala generować klasy dla obiektów stworzonych za pomocą edytora, które wykorzystywane są później do tworzenia obiektów przed zapisem do bazy. Istnieją też inne narzędzia, które umożliwiają wygenerowanie klas dla stworzonego diagramu. Jednym z~najpopularniejszym jest Mogenerator. Zapewnia on wsparcie dla języka Swift i~Objective -C.
+Dodatkowo XCode pozwala generować klasy dla obiektów stworzonych za pomocą edytora, które wykorzystywane są później do tworzenia obiektów przed zapisem do bazy. Istnieją też inne narzędzia, które umożliwiają wygenerowanie klas dla stworzonego diagramu. Jednym z~najpopularniejszym jest Mogenerator. Zapewnia on wsparcie dla języka Swift i~Objective-C.
 
 \newpage
 \subsection{FMDB}
 
-FMDB jest biblioteką opakowującą SQLite. Można więc stwierdzić że FMDB i~SQLite służą temu samemu celowi - umożliwiają efektywne zarządzanie danymi aplikacji. Lecz sposoby w~jaki się je używa znacząco się od siebie różnią. FMBD oferuje interfejs wyższego poziomu ukrywając wszystkie szczegóły SQL takie jak połączenie i~komunikacja z~bazą, ale dalej oferuje dokładną obsługę danych. \par 
-FMDB zapewnia funkcje SQLite, więc podczas implementacji nie trzeba zajmować się połączeniami, a~także pisaniem i~odczytywaniem danych do i~z bazy. Biblioteka ta jest dobrym rozwiązaniem dla programistów, którzy chcą wykorzystać swoją wiedzę SQL i~pisać własne zapytania, ale bez potrzeby pisania własnego menadżera SQLite. FMDB działa w~dwóch językach: Swift i~Objective-C oraz bardzo szybko integruję się z~projektem iOS. Jej twórcy zapewniają, że jest ona zaimplementowana tak aby zapewnić najwyższą wydajność SQLite, lepszą od prostych implementacji menadżerów dla SQLite. \par
+FMDB jest biblioteką opakowującą SQLite. Można więc stwierdzić, że FMDB i~SQLite służą temu samemu celowi - umożliwiają efektywne zarządzanie danymi aplikacji. Mimo pokrewieństwa bibliotek sposoby ich używania znacząco się od siebie różnią. FMBD oferuje interfejs wyższego poziomu, ukrywając wszystkie szczegóły SQL takie jak połączenie i~komunikacja z~bazą, ale dalej oferuje dokładną obsługę danych. \par 
+FMDB zapewnia funkcje SQLite, więc podczas implementacji nie trzeba zajmować się połączeniami, a~także pisaniem i~odczytywaniem danych do i~z bazy. Biblioteka ta jest dobrym rozwiązaniem dla programistów, którzy chcą wykorzystać swoją wiedzę SQL i~pisać własne zapytania, ale bez potrzeby pisania własnego menadżera SQLite. FMDB działa w~dwóch językach: Swift i~Objective-C oraz bardzo szybko integruję się z~projektem iOS. Jej twórcy zapewniają, że jest ona zaimplementowana tak, aby zapewnić najwyższą wydajność SQLite, lepszą od prostych implementacji menadżerów dla SQLite. \par
 
-Biblioteka jest bardo prosta w~użyciu. Możemy w~niej wyróżnić trzy główne klasy: 
+Biblioteka jest bardzo prosta w~użyciu. Możemy w~niej wyróżnić trzy główne klasy: 
 
 \begin{itemize}
 	\item  FMDatabase - Reprezentuje pojedynczy obiekt bazy danych. Używana jest do wykonywania instrukcji SQL. 
@@ -85,7 +85,7 @@ Biblioteka jest bardo prosta w~użyciu. Możemy w~niej wyróżnić trzy główne
 	\item FMDatabaseQueue - Klasa która jest używana podczas wykonywania kwerend i~aktualizacji danych w~bazie przy użyciu wielu wątków.
 \end{itemize}
 
-Jako, że FMBD oferuje interfejs wyższego poziomu do SQLite dodana została obsługa typów danych takich jak: 
+Jako że FMBD oferuje interfejs wyższego poziomu do SQLite dodana została obsługa typów danych takich jak: 
 
 \begin{itemize}
 	\item Bool -  wartość boolowaska prawda/fałsz 
@@ -96,9 +96,9 @@ Obsługa tych dwóch typów danych wymagała w~SQLite dodatkowych operacji. W~pr
 
 \subsection{Realm}
 
-Realm różni się od poprzednio opisywanych baz SQL. Biblioteka ta jest obiektową bazą danych NoSQL. Przechowuje dane w~postaci obiektów. Realm jest rozwiązaniem open-source więc jest w~pełni darmową baza danych, dedykowaną do aplikacji mobilnych. Dodatkowo jest dostępna na systemy Android i~iOS, co znacząco ułatwia prace nad aplikacjami dostępnymi nie tylko na jedną platformę. Współpracuje z~projektami pisanymi w: Swift, Objective-C, Java, React Native, Xamarin i~innymi. Biblioteka ujrzała światło dzienne w~2016 roku a~pierwsza stabilna wersja wydana została w~styczniu 2017 roku. Jedną z~wyróżniających ją funkcji jest możliwość dwukierunkowej synchronizacji pomiędzy bazą serwera a~bazą aplikacji.\par 
+Realm różni się od poprzednio opisywanych baz SQL. Biblioteka ta jest obiektową bazą danych NoSQL. Przechowuje dane w~postaci obiektów. Realm jest rozwiązaniem open-source więc jest w~pełni darmową bazą danych, dedykowaną do aplikacji mobilnych. Dodatkowo jest dostępna na systemy Android i~iOS, co znacząco ułatwia prace nad aplikacjami dostępnymi nie tylko na jedną platformę. Współpracuje z~projektami pisanymi w: Swift, Objective-C, Java, React Native, Xamarin i~innymi. Biblioteka ujrzała światło dzienne w~2016 roku, a~pierwsza stabilna wersja wydana została w~styczniu 2017 roku. Jedną z~wyróżniających ją funkcji jest możliwość dwukierunkowej synchronizacji pomiędzy bazą serwera a~bazą aplikacji.\par 
 
-Realm swoją popularność zyskał poprzez szybkość, łatwość integracji z~projektem oraz łatwością posługiwania się nim. Od bibliotek opakowujących SQLite oraz całego framework-u Core Data odróżnia go to, że większość typowych funkcji, takich jak odpytywanie bazy danych składa się z~pojedynczych linii kodu. Dzięki temu używając biblioteki Realm uzyskuje się bardziej zwięzły kod i~poprawia się jego czytelność. Podczas używania Realm nie potrzebna jest dobra znajomość SQL do zarządzania bazą i~tworzenia zapytań. Nie wymagana jest też dobra znajomość Core Data, która jest zaawansowanym narzędziem i~nie wiele osób posiada umiejętności pozwalające wydaje zarządzać tą bazą danych. W~Realm dane są przechowywane jako obiekty, dzięki czemu przy odczytywaniu czy zapisywaniu danych w~bazie nie ma potrzeby stosowania żadnej biblioteki ORM (Object Relation Mapping), pozwalającej na konwersje danych pomiędzy obiektem programu a~rekordem tabeli. Dzięki temu nie występują problemy z~wydajnością dodatkowych bibliotek ORM. Interfejs biblioteki ogranicza się do trzech klas: 
+Realm swoją popularność zyskał poprzez szybkość, łatwość integracji z~projektem oraz łatwością posługiwania się nim. Od bibliotek opakowujących SQLite oraz całego framework-u Core Data odróżnia go to, że większość typowych funkcji, takich jak odpytywanie bazy danych składa się z~pojedynczych linii kodu. Dzięki temu używając biblioteki Realm uzyskuje się bardziej zwięzły kod i~poprawia się jego czytelność. Podczas używania Realm niepotrzebna jest dobra znajomość SQL do zarządzania bazą i~tworzenia zapytań. Nie wymagana jest też dobra znajomość Core Data, która jest zaawansowanym narzędziem i~nie wiele osób ma umiejętności, pozwalające wydaje zarządzać tą bazą danych. W~Realm dane są przechowywane jako obiekty, dzięki czemu przy odczytywaniu czy zapisywaniu danych w~bazie nie ma potrzeby stosowania żadnej biblioteki ORM (Object Relation Mapping), pozwalającej na konwersje danych pomiędzy obiektem programu a~rekordem tabeli. Dzięki temu nie występują problemy z~wydajnością dodatkowych bibliotek ORM. Interfejs biblioteki ogranicza się do trzech klas: 
 
 \begin{itemize}
 	\item Realm -  Główna klasa, pozwalająca na dostęp do bazy i~wykonywanie operacji zapisu/odczytu.
@@ -107,7 +107,7 @@ Realm swoją popularność zyskał poprzez szybkość, łatwość integracji z~p
 \end{itemize}
  \par
 
-Realm tak jak Core Data czy FMDB zapewnia wsparcie dla wszystkich typów danych. Na uwagę zasługują tutaj relacje pomiędzy tabelami. Biblioteka jest obiektową bazą danych, nie ma więc w~niej tabel i~zwykłych relacji pomiędzy nimi. W~Realm relacje pomiędzy obiektami tworzone są za pomocą linkowana obiektów. Każdy link tworzy link zwrotny, jako relację odwrotną do dowolnego obiektu łączącego się z~bieżącym obiektem obiektem. Za pomocą Reaml Studio możliwe jest także stworzenie pliku bazy danych na podstawie dokumentu CSV.  \par 
+Realm tak jak Core Data czy FMDB zapewnia wsparcie dla wszystkich typów danych. Na uwagę zasługują tutaj relacje pomiędzy tabelami. Biblioteka jest obiektową bazą danych, nie ma więc w~niej tabel i~zwykłych relacji pomiędzy nimi. W~Realm relacje pomiędzy obiektami tworzone są za pomocą linkowana obiektów. Każdy link tworzy link zwrotny, jako relację odwrotną do dowolnego obiektu łączącego się z~bieżącym obiektem. Za pomocą Reaml Studio możliwe jest także stworzenie pliku bazy danych na podstawie dokumentu CSV.  \par 
 
 Dodatkowo Realm dostarcza również narzędzie Realm Studio, widoczne na rysunku 2.2. Pozwala ono na łatwe zarządzanie bazą danych. Umożliwia otwieranie, przeglądanie i~edytowanie lokalnych plików Realm.  
 
@@ -119,6 +119,6 @@ Dodatkowo Realm dostarcza również narzędzie Realm Studio, widoczne na rysunku
 
 \subsection{User Defaults}
 
-Kolejnym z~rozwiązań pozwalającym zapisywać i~przechowywać dane w~systemi iOS jest User Defaults - domyślna baza użytkownika. Dane w~niej przechowywane są pary klucz - wartość. System pomimo, iż nie jest prawdziwą bazą danych a~jedynie interfejsem, który pozwala na przechowywanie potrzebnych, niewielkich danych aplikacji, został wybrany w~tej pracy do porównania ponieważ wielu programistów używa go zamiast innych rozwiązań bazodanowych. Rozwiązanie to jest szybkie w~implementacji i~pozwala zapisywać niestandardowe obiekty, jeżeli implementują protokół NSCoding i~zostaną skonwertowane do prostej formy Data. Więcej informacji na temat sposobu zapisu i~konwersji danych znajduję się w~rozdziale 6 . \par
+Kolejnym z~rozwiązań pozwalającym zapisywać i~przechowywać dane w~systemi iOS jest User Defaults - domyślna baza użytkownika. Dane w~niej przechowywane są pary klucz - wartość. System, pomimo iż nie jest prawdziwą bazą danych a~jedynie interfejsem, który pozwala na przechowywanie potrzebnych, niewielkich danych aplikacji, został wybrany w~tej pracy do porównania, ponieważ wielu programistów używa go zamiast innych rozwiązań bazodanowych. Rozwiązanie to jest szybkie w~implementacji i~pozwala zapisywać niestandardowe obiekty, jeżeli implementują protokół NSCoding i~zostaną skonwertowane do prostej formy Data. Więcej informacji na temat sposobu zapisu i~konwersji danych znajduję się w~rozdziale 6 . \par
   
 User Defaults pozwala zapisywać wartości takie jak: Bool, Integer, Float, Double, String, Data, URL, Array, Dictionary. Zapis danych wykonuje się za pomocą funkcji set(:forKey:) a~odczyt value(forKey:). 

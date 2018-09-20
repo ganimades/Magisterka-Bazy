@@ -13,7 +13,7 @@
 	\label{fig: first_app_view}
 \end{figure}
 
-Po wyborze bazy danych użytkownik zostaje przeniesiony do kolejnego ekranu aplikacji w~którym należy wybrać jeden z~dostępnych testów. Ekran widoczny jest na rysunku 4.2 znajdującym się poniżej.
+Po wyborze bazy danych użytkownik zostaje przeniesiony do kolejnego ekranu aplikacji, w~którym należy wybrać jeden z~dostępnych testów. Ekran widoczny jest na rysunku 4.2 znajdującym się poniżej.
 
 \begin{figure}[h]
 \centering
@@ -35,11 +35,11 @@ Po wyborze jednego z~testów następuje przejście do kolejnego ekranu widoczneg
 
 \newpage
 
-Na ekranie znajduje się przycisk ,,Start''  który uruchamia test. Podczas wykonywania testu na ekranie wypisywane są czasy w~których zakończone zostają pojedyncze iteracje. Kiedy test dobiegnie końca za pomocą przycisku ,,Send Result" możliwa jest generacja pliku CSV zawierającego wszystkie uzyskane wyniki takie jak czasy pojedynczych operacji, użycie pamięci operacyjnej aplikacji podczas trwania testu czy też użycie procesora podczas każdej z~przeprowadzanych operacji. 
+Na ekranie znajduje się przycisk ,,Start''  który uruchamia test. Podczas wykonywania testu na ekranie wypisywane są czasy, w~których zakończone zostają pojedyncze iteracje. Kiedy test dobiegnie końca za pomocą przycisku ,,Send Result" możliwa jest generacja pliku CSV zawierającego wszystkie uzyskane wyniki takie jak czasy pojedynczych operacji, użycie pamięci operacyjnej aplikacji podczas trwania testu czy też użycie procesora podczas każdej z~przeprowadzanych operacji. 
 
 \subsection{Schemat bazy danych}
 
-Do przeprowadzenia testów zaprojektowany został prosty schemat bazy danych. Widoczny jest na rysunku 4.4. Zawiera on następujące tablice: Autor, Książka, Wydawnictwo. Autor może mieć wiele książek zaś książka wielu autorów - użyta została tu relacja wiele do wielu. Wydawnictwo może wiele książek ale jedna książka może mieć tylko jedno wydawnictwo - zastosowana została relacja jeden do wielu. 
+Do przeprowadzenia testów zaprojektowany został prosty schemat bazy danych. Widoczny jest na rysunku 4.4. Zawiera on następujące tablice: Autor, Książka, Wydawnictwo. Autor może mieć wiele książek zaś książka wielu autorów - użyta została tu relacja wiele do wielu. Wydawnictwo może wiele książek, ale jedna książka może mieć tylko jedno wydawnictwo - zastosowana została relacja jeden do wielu. 
 
 \begin{figure}[h]
 \centering
@@ -48,9 +48,9 @@ Do przeprowadzenia testów zaprojektowany został prosty schemat bazy danych. Wi
 	\label{fig: sql_data_schame}
 \end{figure}
 
-Zaprojektowany schemat bazy umożliwia przetestowanie działania baz danych przy pracy na tabelach w~których są różne typy relacji a~także zapewnia możliwość testowania odczytu i~zapisu daty. Data jest jednym z~ważniejszych elementów w~mobilnych bazach danych ponieważ niektóre rozwiązania bazodanowe nie zapewniają wsparcia dla tego formatu danych o~czym była mowa podczas opisu wybranych baz danych. \par 
+Zaprojektowany schemat bazy umożliwia przetestowanie działania baz danych przy pracy na tabelach, w~których są różne typy relacji, a~także zapewnia możliwość testowania odczytu i~zapisu daty. Data jest jednym z~ważniejszych elementów w~mobilnych bazach danych, ponieważ niektóre rozwiązania bazodanowe nie zapewniają wsparcia dla tego formatu danych, o~czym była mowa podczas opisu wybranych baz danych. \par 
 
- W~pracy testom zostały poddane także bazy NoSQL. Dla Realm i~Core Data stworzony został schemat bazy widoczny na rysunku 4.5, nie posiadający tablicy pośredniej dla relacji wiele do wielu (Autor - Książka). Tablica ta jest zbędna dla tego typu baz danych ponieważ relacja wiele do wielu przechowywana jest za pomocą listy książek w~tabeli autor i~listy autorów w~tablicy książka. 
+ W~pracy testom zostały poddane także bazy NoSQL. Dla Realm i~Core Data stworzony został schemat bazy widoczny na rysunku 4.5, nieposiadający tablicy pośredniej dla relacji wiele do wielu (Autor - Książka). Tablica ta jest zbędna dla tego typu baz danych, ponieważ relacja wiele do wielu przechowywana jest za pomocą listy książek w~tabeli autor i~listy autorów w~tablicy książka. 
 
 \begin{figure}[h]
 \centering
@@ -63,11 +63,11 @@ Dla domyślnej bazy użytkownika - User Defaults struktura zapisywanych obiektó
 
 \section{Opis przeprowadzonych testów}
 
- W~rozdziale zostały opisane testy przeprowadzone w~ramach pracy. Przedstawiono kroki potrzebne do otrzymania poprawnych wyników w~zależności od typu testu oraz pokazano w~jaki sposób został mierzony czas uzyskania rezultatu każdej operacji. 
+ W~rozdziale zostały opisane testy przeprowadzone w~ramach pracy. Przedstawiono kroki potrzebne do otrzymania poprawnych wyników w~zależności od typu testu oraz pokazano, w~jaki sposób został zmierzony czas uzyskania rezultatu każdej operacji. 
 
 \subsection{Testowane operacje}
 
- W~ramach analizy zostały przetestowane operacje CRUD - zapis, odczyt, uaktualnienie i~usuwanie danych. W~celu uzyskania jak najbardziej poprawnych wyników testy zostały przeprowadzone stukrotnie a~wyniki przedstawiane w~analizie są uśrednieniem wszystkich stu operacji dla danego testu. Przeprowadzenie operacji więcej niż jeden raz ma ogromne znaczenie ponieważ otrzymane czasy operacji zależne są od obciążenia urządzenia w~danym czasie. Wszystkie testy zostały przeprowadzone na  urządzeniu iPhone 6s. \par
+ W~ramach analizy zostały przetestowane operacje CRUD - zapis, odczyt, uaktualnienie i~usuwanie danych. W~celu uzyskania jak najbardziej poprawnych wyników testy zostały przeprowadzone stukrotnie a~wyniki przedstawiane w~analizie są uśrednieniem wszystkich stu operacji dla danego testu. Przeprowadzenie operacji więcej niż jeden raz ma ogromne znaczenie, ponieważ otrzymane czasy operacji zależne są od obciążenia urządzenia w~danym czasie. Wszystkie testy zostały przeprowadzone na  urządzeniu iPhone 6s. \par
 
 Testy były przeprowadzone dla następujących operacji: 
 \begin{itemize}
@@ -102,7 +102,7 @@ Testy były przeprowadzone dla następujących operacji:
 		 \end{itemize}	 
 \end{itemize}
 
- W~celu otrzymania dokładnych wyników świadczących o~wydajności bazy danych testy były projektowane tak aby operowały one na wszystkich danych zawartych w~tabelach a~także na niektórych z~wybranych podczas zapytania. Zapewnia to lepszy obraz wydajności bazy danych kiedy istnieje potrzeba przetworzenia wszystkich danych w~danej tabeli lub kiedy należy przeprowadzić operacje na kilku rekordach. 
+ W~celu otrzymania dokładnych wyników świadczących o~wydajności bazy danych testy były projektowane tak, aby operowały one na wszystkich danych zawartych w~tabelach, a~także na niektórych z~wybranych podczas zapytania. Zapewnia to lepszy obraz wydajności bazy danych, kiedy istnieje potrzeba przetworzenia wszystkich danych w~danej tabeli lub kiedy należy przeprowadzić operacje na kilku rekordach. 
 
 \subsection{Dane testowe}
 
@@ -126,7 +126,7 @@ Różna ilości danych ma na celu pokazanie podczas testów zmian wydajności ka
 \subsection{Przebieg testów}
 
  W~pracy skupiono się na wydajności baz danych, ale z~powodu testowania różnych typów baz należało przyjąć odpowiednie zasady testów.\par 
-Bazy Core Data czy Realm w~wyniku zapytania zwracają obiekty, różniące się od siebie pod względem implementacji ale zawierające te same pola zawarte w~modelu bazy. Różnice te wynikają z~różnego sposobu działania baz danych, przedstawione one zostały w~kolejnych rozdziałach pracy. Bazy SQLite i~FMBD w~rezultacie zapytania zwracają surowe dane a~nie obiekty. Jasne staje się że czasy otrzymania obiektu względem otrzymania surowego rezultatu będą różne. Aby otrzymać miarodajne rezultaty testów założono więc, że wynikiem końcowym każdego z~testów odczytu będzie otrzymanie listy obiektów programu a~nie samych surowych danych. 
+Bazy Core Data czy Realm w~wyniku zapytania zwracają obiekty, różniące się od siebie pod względem implementacji, ale zawierające te same pola zawarte w~modelu bazy. Różnice te wynikają z~różnego sposobu działania baz danych, przedstawione one zostały w~kolejnych rozdziałach pracy. Bazy SQLite i~FMBD w~rezultacie zapytania zwracają surowe dane, a~nie obiekty. Jasne staje się, że czasy otrzymania obiektu względem otrzymania surowego rezultatu będą różne. Aby otrzymać miarodajne rezultaty testów założono więc, że wynikiem każdego z~testów odczytu będzie otrzymanie listy obiektów programu, a~nie samych surowych danych. 
 
 \begin{figure}[h]
 \centering
@@ -168,4 +168,4 @@ Cały proces testów przedstawia rysunek 5.1.  Pierwszym etapem jest przekształ
 	 
 \end{itemize}
 
-Ilość wykonywania powtórzeń operacji poprzez pętle zostaje zdefiniowana przez użytkownika w~ekranie aplikacji widocznym na rysunku \ref{fig: third_app_view}, poprzez wprowadzenie liczby testów w~polu tekstowym. Jak można zauważyć najbardziej czasochłonnymi testami jest pomiar czasu edycji i~usuwania danych. Podczas tego testu wielokrotnie jest powtarzana operacja zapisu do danych.
+Ilość wykonywania powtórzeń operacji poprzez pętle zostaje zdefiniowana przez użytkownika w~ekranie aplikacji widocznym na rysunku \ref{fig: third_app_view}, poprzez wprowadzenie liczby testów w~polu tekstowym. Jak można zauważyć, najbardziej czasochłonnymi testami jest pomiar czasu edycji i~usuwania danych. Podczas tego testu wielokrotnie jest powtarzana operacja zapisu do danych.
